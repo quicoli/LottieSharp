@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2042
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LottieSharp", "LottieSharp\LottieSharp.csproj", "{B5D0C72A-817B-439E-A6C6-E2181FCB96E2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LottieSharp.Sample", "LottieSharp.Sample\LottieSharp.Sample.csproj", "{3E0947E6-1026-4AE1-88C0-56DA2524E620}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B5D0C72A-817B-439E-A6C6-E2181FCB96E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5D0C72A-817B-439E-A6C6-E2181FCB96E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5D0C72A-817B-439E-A6C6-E2181FCB96E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5D0C72A-817B-439E-A6C6-E2181FCB96E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E0947E6-1026-4AE1-88C0-56DA2524E620}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E0947E6-1026-4AE1-88C0-56DA2524E620}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E0947E6-1026-4AE1-88C0-56DA2524E620}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E0947E6-1026-4AE1-88C0-56DA2524E620}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {63CDDB76-CB25-4293-B337-2A64C17AC327}
+	EndGlobalSection
+EndGlobal
