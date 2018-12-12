@@ -261,11 +261,13 @@ namespace LottieSharp
                 {
                     SetAnimationFromUrlAsync(Url).RunSynchronously();
                 }
+
+                if (AutoPlay)
+                {
+                    _lottieDrawable.PlayAnimation();
+                }
             }
-            if (AutoPlay)
-            {
-                _lottieDrawable.PlayAnimation();
-            }
+            
             _lottieDrawable.RepeatCount = RepeatCount;
 
             EnableMergePathsForKitKatAndAbove(false);
