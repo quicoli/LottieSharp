@@ -1,0 +1,62 @@
+﻿{
+  // Enable this if you need to build package from the nuspec file instead of the project file.
+  "UseNuspecFileOnly": false,
+
+  // Additional command line arguments to pass to nuget.exe (e.g. -tool)
+  "AdditionalNuGetArguments": "",
+
+  // Determines if a package containing sources and symbols should be created.
+  // When specified with a nuspec, creates a regular NuGet package file and the corresponding symbols package
+  "Symbols": false,
+
+  // Include referenced projects either as dependencies or as part of the package.
+  // If a referenced project has a corresponding nuspec file that has the same name as the project,
+  // then that referenced project is added as a dependency.
+  // Otherwise, the referenced project is added as part of the package.
+  "IncludeReferencedProjects": true,
+
+  // Prevent default exclusion of NuGet package files and files and folders starting with a dot e.g. .svn
+  "NoDefaultExcludes": true,
+
+  // Display this amount of details in the output: normal, quiet, detailed.
+  "Verbosity": "Detailed",
+
+  // Provides the ability to specify a semicolon ";" delimited list of properties when creating a package.
+  // Included by default are Configuration and Platform
+  "AdditionalProperties": "",
+
+  // Limit the package generation to a specific build configuration.
+  // Leaving this value empty will always trigger package generation
+  // Note: config parameter was introduced in release 1.0.7
+  "Configuration": "",
+
+  // Specifies one or more wildcard patterns to exclude when creating a package.
+  "Exclude": "",
+
+  "Publish": {
+    // Publish nuget package on build.
+    // Note: This will publish the package every time you compile the project.
+    // You can override this behavior by parsing in a MSBuild property named PublishNuGetPackage setting
+    // the value to true to control when a package is published.
+    // e.g. To publish package when building nightly build on VSO, add the following to the build definitions process template
+    // 2. Build -> 5. Advanced -> MSBuild Arguments -> "/p:PublishNuGetPackage=true"
+    "PublishOnBuild": false,
+
+    // The API key for the server.
+    // You can override this behavior by parsing in a MSBuild property named PublishApiKey.
+    "ApiKey": "",
+
+    // Specifies the server URL. If not specified, nuget.org is used unless DefaultPushSource config value
+    // is set in the NuGet config file. If NuGet.exe identifies a UNC/folder source, it will perform the file copy to the source
+    // You can override this behavior by parsing in a MSBuild property named PublishSource.
+    "Source": "",
+
+    // Specifies the symbol server URL.
+    // If the presence of a .symbols.nupkg package is detected e.g.Symbols = "true" it will be automatically pushed to SymbolSource.org unless
+    // an alternative symbol source is specified.
+    "SymbolSource": "",
+
+    // Specifies the timeout for pushing to a server in seconds. Defaults to 300 seconds (5 minutes).
+    "Timeout": 300
+  }
+}
