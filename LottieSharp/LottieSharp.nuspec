@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<package >
+	<!--
+	Any nuget reference you add will be included in the nuget package as a dependency without you
+	having to add it in here.
+	
+	For more info on how to compose a nuspec file see http://docs.nuget.org/create/nuspec-reference 
+	-->
+
+	<metadata>
+		<!-- This will use the AssemblyName -->
+		<id>$id$</id>
+		<!-- This will use the AssemblyVersion -->
+		<version>$version$</version>
+		<title>LottieSharp</title>
+		<description>C# (WPF) port of Lottie (https://github.com/airbnb/lottie-android) based on .NET Framework 4.6.1 using sharpdx (http://sharpdx.org/)</description>
+		<authors>Ascora GmbH and contributors</authors>
+		<owners>Ascora GmbH</owners>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<releaseNotes>Initial release.</releaseNotes>
+		<copyright>Copyright 2018</copyright>
+    <iconUrl>https://github.com/quicoli/LottieSharp/blob/master/Images/lottie_sharp.ico?raw=true</iconUrl>
+    <projectUrl>https://github.com/ascora/LottieSharp</projectUrl>
+		<tags>WPF, Lottie, Animation</tags>
+	</metadata>
+</package>
