@@ -169,7 +169,8 @@ namespace LottieSharp.WpfSurface
 
         private void EndD3D()
         {
-            d3DSurface.IsFrontBufferAvailableChanged -= OnIsFrontBufferAvailableChanged;
+            if (d3DSurface != null)
+                d3DSurface.IsFrontBufferAvailableChanged -= OnIsFrontBufferAvailableChanged;
             base.Source = null;
 
             Disposer.SafeDispose(ref d2DRenderTarget);
