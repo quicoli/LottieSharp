@@ -1,7 +1,7 @@
 # LottieSharp
 
 
-| ![Logo](https://github.com/quicoli/LottieSharp/blob/master/Images/lottie_sharp-128.png?raw=true) |C# (WPF) port of Lottie (https://github.com/airbnb/lottie-android) based on .NET Framework 4.6.1 using sharpdx (http://sharpdx.org/)  |
+| ![Logo](https://raw.githubusercontent.com/ascora/LottieSharp/master/Images/lottie_sharp-128.png) |C# (WPF) port of Lottie (https://github.com/airbnb/lottie-android) based on .NET Framework 4.6.1 using sharpdx (http://sharpdx.org/)  |
 |--|--|
 
 **Usage**
