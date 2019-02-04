@@ -134,7 +134,10 @@ namespace LottieSharp
                     }
                     else
                     {
-                        System.Runtime.InteropServices.Marshal.ReleaseComObject(_geometry);
+                        if (System.Runtime.InteropServices.Marshal.IsComObject(_geometry))
+                        {
+                            System.Runtime.InteropServices.Marshal.ReleaseComObject(_geometry);
+                        }
                     }
                 }
                 catch (Exception)
