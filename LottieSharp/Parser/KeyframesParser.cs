@@ -70,7 +70,6 @@ namespace LottieSharp.Parser
             for (int i = 0; i < size - 1; i++)
             {
                 // In the json, the keyframes only contain their starting frame. 
-                // keyframes[i].EndFrame = keyframes[i + 1].StartFrame;
                 var keyframe = keyframes[i];
                 Keyframe<TV> nextKeyframe = keyframes[i + 1];
                 keyframe.EndFrame = nextKeyframe.StartFrame;
