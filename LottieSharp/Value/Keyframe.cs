@@ -6,7 +6,7 @@ namespace LottieSharp.Value
     {
         private readonly LottieComposition _composition;
         public T StartValue { get; }
-        public T EndValue { get; }
+        public T EndValue { get; internal set; }
         public IInterpolator Interpolator { get; }
         public float? StartFrame { get; }
         public float? EndFrame { get; internal set; }

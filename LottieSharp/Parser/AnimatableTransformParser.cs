@@ -54,6 +54,14 @@ namespace LottieSharp.Parser
                         break;
                     case "r":
                         rotation = AnimatableValueParser.ParseFloat(reader, composition, false);
+                        if (rotation.Keyframes.Count == 0)
+                        {
+                            rotation.Keyframes.Add(new Keyframe<float?>(composition, 0f, 0f, null, 0f, composition.EndFrame));
+                        }
+                        else if (rotation.Keyframes[0].StartValue == null)
+                        {
+                            rotation.Keyframes[0] = new Keyframe<float?>(composition, 0f, 0f, null, 0f, composition.EndFrame);
+                        }
                         break;
                     case "o":
                         opacity = AnimatableValueParser.ParseInteger(reader, composition);

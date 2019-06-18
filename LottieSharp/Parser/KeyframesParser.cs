@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using LottieSharp.Animation.Keyframe;
 using LottieSharp.Value;
 using Newtonsoft.Json;
 
@@ -69,10 +70,18 @@ namespace LottieSharp.Parser
             for (int i = 0; i < size - 1; i++)
             {
                 // In the json, the keyframes only contain their starting frame. 
-                keyframes[i].EndFrame = keyframes[i + 1].StartFrame;
-            }
+                // keyframes[i].EndFrame = keyframes[i + 1].StartFrame;
+                var keyframe = keyframes[i];
+                Keyframe<TV> nextKeyframe = keyframes[i + 1];
+                keyframe.EndFrame = nextKeyframe.StartFrame;
+                if (keyframe.EndValue == null && nextKeyframe.StartValue != null)
+                {
+                    keyframe.EndValue = nextKeyframe.StartValue;
+                    (keyframe as PathKeyframe)?.CreatePath();
+                }
+    }
             var lastKeyframe = keyframes[size - 1];
-            if (lastKeyframe.StartValue == null)
+            if ((lastKeyframe.StartValue == null || lastKeyframe.EndValue == null) && keyframes.Count > 1)
             {
                 // The only purpose the last keyframe has is to provide the end frame of the previous 
                 // keyframe. 
