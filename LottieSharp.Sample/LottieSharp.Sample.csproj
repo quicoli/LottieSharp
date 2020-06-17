@@ -114,7 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LottieSharp\LottieSharp.csproj">
-      <Project>{b5d0c72a-817b-439e-a6c6-e2181fcb96e2}</Project>
+      <Project>{2b90ee6c-cd08-42a5-998b-a67dc7da6688}</Project>
       <Name>LottieSharp</Name>
     </ProjectReference>
   </ItemGroup>

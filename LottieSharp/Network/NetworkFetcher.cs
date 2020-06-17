@@ -107,7 +107,7 @@ namespace LottieSharp.Network
                             //file = await _networkCache.WriteTempCacheFileAsync(await response.Content.ReadAsStreamAsync().AsAsyncOperation().AsTask(cancellationToken), extension, cancellationToken);
                             //using (var stream = await file.OpenStreamForReadAsync().AsAsyncOperation().AsTask(cancellationToken))
                             //{
-                                result = await LottieCompositionFactory.FromZipStreamAsync(renderTarget, ZipFile.Read(await response.Content.ReadAsStreamAsync()), _url);
+                                result = await LottieCompositionFactory.FromZipStreamAsync(renderTarget, Ionic.Zip.ZipFile.Read(await response.Content.ReadAsStreamAsync()), _url);
                             //}
                             break;
                         case "application/json":
