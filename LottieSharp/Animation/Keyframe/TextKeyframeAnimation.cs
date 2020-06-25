@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using LottieSharp.Model;
+﻿using LottieSharp.Model;
 using LottieSharp.Value;
+using System.Collections.Generic;
 
 namespace LottieSharp.Animation.Keyframe
 {

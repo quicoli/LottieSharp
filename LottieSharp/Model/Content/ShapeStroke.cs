@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using LottieSharp.Animation.Content;
+﻿using LottieSharp.Animation.Content;
 using LottieSharp.Model.Animatable;
 using LottieSharp.Model.Layer;
 using SharpDX.Direct2D1;
+using System.Collections.Generic;
 
 namespace LottieSharp.Model.Content
 {
@@ -28,7 +28,7 @@ namespace LottieSharp.Model.Content
                     return CapStyle.Square;
             }
         }
-        
+
         public enum LineJoinType
         {
             Miter,

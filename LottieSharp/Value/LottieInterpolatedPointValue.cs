@@ -1,4 +1,12 @@
-﻿using SharpDX;
+﻿
+/* Unmerged change from project 'LottieSharp (netcoreapp3.0)'
+Before:
+using SharpDX;
+using LottieSharp.Utils;
+After:
+using LottieSharp.Utils;
+using SharpDX;
+*/
 using LottieSharp.Utils;
 using SharpDX;
 

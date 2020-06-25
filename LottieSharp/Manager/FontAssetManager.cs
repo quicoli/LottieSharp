@@ -96,7 +96,7 @@ namespace LottieSharp.Manager
             {
                 return typeface;
             }
-            
+
             return Typeface.Create(typeface, fontStyle, fontWeight);
         }
     }

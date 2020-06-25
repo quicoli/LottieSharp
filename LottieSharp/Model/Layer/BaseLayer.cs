@@ -1,11 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using LottieSharp.Animation.Content;
+using LottieSharp.Animation.Keyframe;
+
+/* Unmerged change from project 'LottieSharp (netcoreapp3.0)'
+Before:
 using System.Diagnostics;
 using SharpDX;
 using LottieSharp.Animation.Content;
 using LottieSharp.Animation.Keyframe;
 using LottieSharp.Model.Content;
 using LottieSharp.Value;
+After:
+using LottieSharp.Model.Content;
+using LottieSharp.Value;
+using SharpDX;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+*/
+using LottieSharp.Model.Content;
+using LottieSharp.Value;
+using SharpDX;
+using System;
+using System.Collections.Generic;
 
 namespace LottieSharp.Model.Layer
 {

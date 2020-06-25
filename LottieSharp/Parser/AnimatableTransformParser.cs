@@ -1,8 +1,8 @@
-﻿using System.Diagnostics;
-using SharpDX;
-using LottieSharp.Model.Animatable;
+﻿using LottieSharp.Model.Animatable;
 using LottieSharp.Value;
 using Newtonsoft.Json;
+using SharpDX;
+using System.Diagnostics;
 
 namespace LottieSharp.Parser
 {

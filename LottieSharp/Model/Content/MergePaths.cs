@@ -1,6 +1,6 @@
-﻿using System.Diagnostics;
-using LottieSharp.Animation.Content;
+﻿using LottieSharp.Animation.Content;
 using LottieSharp.Model.Layer;
+using System.Diagnostics;
 
 namespace LottieSharp.Model.Content
 {

@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using SharpDX;
-using LottieSharp.Model.Content;
+﻿using LottieSharp.Model.Content;
 using LottieSharp.Utils;
 using Newtonsoft.Json;
+using SharpDX;
+using System.Collections.Generic;
 
 namespace LottieSharp.Parser
 {

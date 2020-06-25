@@ -1,7 +1,7 @@
-﻿using SharpDX;
+﻿using LottieSharp.Animation.Keyframe;
 using LottieSharp.Value;
-using LottieSharp.Animation.Keyframe;
 using Newtonsoft.Json;
+using SharpDX;
 
 namespace LottieSharp.Parser
 {

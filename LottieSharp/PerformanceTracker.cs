@@ -1,7 +1,7 @@
-﻿using System;
+﻿using LottieSharp.Utils;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using LottieSharp.Utils;
 
 namespace LottieSharp
 {

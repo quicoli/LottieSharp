@@ -18,7 +18,7 @@ namespace LottieSharp.WpfSurface
 
         // - property --------------------------------------------------------------------
 
-        public int RenderWait { get; set; } = 2; // default: 2ms
+        public int RenderWait { get; set; } = 10; // default: 2ms
 
         // - public methods --------------------------------------------------------------
 
@@ -26,6 +26,13 @@ namespace LottieSharp.WpfSurface
         {
             StartD3D();
             Dx11ImageSource.ActiveClients++;
+
+            IsFrontBufferAvailableChanged += Dx11ImageSource_IsFrontBufferAvailableChanged;
+        }
+
+        private void Dx11ImageSource_IsFrontBufferAvailableChanged(object sender, System.Windows.DependencyPropertyChangedEventArgs e)
+        {
+            //UpdateBackBuffer();
         }
 
         public void Dispose()
@@ -40,14 +47,31 @@ namespace LottieSharp.WpfSurface
 
         public void InvalidateD3DImage()
         {
+            if (!this.IsFrontBufferAvailable) return;
+
             if (renderTarget != null)
             {
-                base.Lock();
-                if (RenderWait != 0)
+                using (var surface = renderTarget.GetSurfaceLevel(0))
                 {
-                    Thread.Sleep(RenderWait);
+
+                    base.Lock();
+                    base.SetBackBuffer(D3DResourceType.IDirect3DSurface9, surface.NativePointer);
+                    if (RenderWait != 0)
+                    {
+                        Thread.Sleep(RenderWait);
+                    }
+                    base.AddDirtyRect(new System.Windows.Int32Rect(0, 0, base.PixelWidth, base.PixelHeight));
+                    base.Unlock();
                 }
-                base.AddDirtyRect(new System.Windows.Int32Rect(0, 0, base.PixelWidth, base.PixelHeight));
+            }
+        }
+
+        private void UpdateBackBuffer()
+        {
+            using (var surface = renderTarget.GetSurfaceLevel(0))
+            {
+                base.Lock();
+                base.SetBackBuffer(D3DResourceType.IDirect3DSurface9, surface.NativePointer);
                 base.Unlock();
             }
         }

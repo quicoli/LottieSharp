@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using LottieSharp.Model.Content;
+﻿using LottieSharp.Model.Content;
+using System.Collections.Generic;
 
 namespace LottieSharp.Model
 {

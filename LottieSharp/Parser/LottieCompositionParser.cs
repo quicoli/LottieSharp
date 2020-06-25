@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Text.RegularExpressions;
-using SharpDX;
-using LottieSharp.Model;
+﻿using LottieSharp.Model;
 using LottieSharp.Model.Layer;
+using SharpDX;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace LottieSharp.Parser
 {

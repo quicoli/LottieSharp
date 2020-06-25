@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using LottieSharp.Model.Animatable;
 using LottieSharp.Value;
-using LottieSharp.Model.Animatable;
+using System.Collections.Generic;
 
 namespace LottieSharp.Parser
 {

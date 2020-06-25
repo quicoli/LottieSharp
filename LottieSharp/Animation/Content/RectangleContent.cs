@@ -1,13 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using SharpDX;
-using SharpDX;
-using LottieSharp.Animation.Keyframe;
+﻿using LottieSharp.Animation.Keyframe;
 using LottieSharp.Model;
 using LottieSharp.Model.Content;
 using LottieSharp.Model.Layer;
 using LottieSharp.Utils;
+
+/* Unmerged change from project 'LottieSharp (netcoreapp3.0)'
+Before:
 using LottieSharp.Value;
+After:
+using LottieSharp.Value;
+using SharpDX;
+using SharpDX;
+using System;
+using System.Collections.Generic;
+*/
+using LottieSharp.Value;
+using SharpDX;
+using System;
+using System.Collections.Generic;
 
 namespace LottieSharp.Animation.Content
 {
@@ -100,24 +110,46 @@ namespace LottieSharp.Animation.Content
                     _path.ArcTo(position.X + halfWidth, position.Y + halfHeight - radius, _rect, 0, 90);
                 }
 
+
+/* Unmerged change from project 'LottieSharp (netcoreapp3.0)'
+Before:
                 _path.LineTo(position.X - halfWidth + radius, position.Y + halfHeight);
                 
+                if (radius > 0)
+After:
+                _path.LineTo(position.X - halfWidth + radius, position.Y + halfHeight);
+
+                if (radius > 0)
+*/
+                _path.LineTo(position.X - halfWidth + radius, position.Y + halfHeight);
+
                 if (radius > 0)
                 {
                     RectExt.Set(ref _rect, position.X - halfWidth, position.Y + halfHeight - 2 * radius, position.X - halfWidth + 2 * radius, position.Y + halfHeight);
                     _path.ArcTo(position.X - halfWidth + radius, position.Y + halfHeight, _rect, 90, 90);
                 }
-                
+
                 _path.LineTo(position.X - halfWidth, position.Y - halfHeight + radius);
-                
+
                 if (radius > 0)
                 {
                     RectExt.Set(ref _rect, position.X - halfWidth, position.Y - halfHeight, position.X - halfWidth + 2 * radius, position.Y - halfHeight + 2 * radius);
                     _path.ArcTo(position.X - halfWidth, position.Y - halfHeight + radius, _rect, 180, 90);
+
+/* Unmerged change from project 'LottieSharp (netcoreapp3.0)'
+Before:
                 }
                 
                 _path.LineTo(position.X + halfWidth - radius, position.Y - halfHeight);
-                
+After:
+                }
+
+                _path.LineTo(position.X + halfWidth - radius, position.Y - halfHeight);
+*/
+                }
+
+                _path.LineTo(position.X + halfWidth - radius, position.Y - halfHeight);
+
                 if (radius > 0)
                 {
                     RectExt.Set(ref _rect, position.X + halfWidth - 2 * radius, position.Y - halfHeight, position.X + halfWidth, position.Y - halfHeight + 2 * radius);

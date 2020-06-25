@@ -1,8 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using LottieSharp.Animation.Keyframe;
+
+/* Unmerged change from project 'LottieSharp (netcoreapp3.0)'
+Before:
 using SharpDX;
 using LottieSharp.Value;
-using LottieSharp.Animation.Keyframe;
+After:
+using LottieSharp.Value;
 using SharpDX;
+*/
+using LottieSharp.Value;
+using SharpDX;
+using System.Collections.Generic;
 
 namespace LottieSharp.Model.Animatable
 {

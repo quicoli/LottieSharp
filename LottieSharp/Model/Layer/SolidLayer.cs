@@ -1,8 +1,16 @@
-﻿using SharpDX;
-using SharpDX;
-using LottieSharp.Animation.Content;
+﻿using LottieSharp.Animation.Content;
 using LottieSharp.Animation.Keyframe;
+
+/* Unmerged change from project 'LottieSharp (netcoreapp3.0)'
+Before:
 using LottieSharp.Value;
+After:
+using LottieSharp.Value;
+using SharpDX;
+using SharpDX;
+*/
+using LottieSharp.Value;
+using SharpDX;
 
 namespace LottieSharp.Model.Layer
 {

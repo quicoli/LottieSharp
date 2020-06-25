@@ -1,10 +1,17 @@
-﻿using System;
+﻿using SharpDX.Direct2D1;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+/* Unmerged change from project 'LottieSharp (netcoreapp3.0)'
+Before:
 using System.Threading.Tasks;
 using SharpDX.Direct2D1;
+After:
+using System.Threading.Tasks;
+*/
+
 
 namespace LottieSharp.Manager
 {

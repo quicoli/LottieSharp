@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using SharpDX;
-using LottieSharp.Animation.Keyframe;
+﻿using LottieSharp.Animation.Keyframe;
 using LottieSharp.Model;
 using LottieSharp.Model.Animatable;
 using LottieSharp.Model.Content;
 using LottieSharp.Model.Layer;
 using LottieSharp.Utils;
 using LottieSharp.Value;
+using SharpDX;
 using SharpDX.Direct2D1;
+using System;
+using System.Collections.Generic;
 
 namespace LottieSharp.Animation.Content
 {
@@ -349,7 +349,7 @@ namespace LottieSharp.Animation.Content
                 }
                 else
                 {
-                    _colorFilterAnimation = new ValueCallbackKeyframeAnimation<ColorFilter, ColorFilter>((ILottieValueCallback<ColorFilter>) callback);
+                    _colorFilterAnimation = new ValueCallbackKeyframeAnimation<ColorFilter, ColorFilter>((ILottieValueCallback<ColorFilter>)callback);
                     _colorFilterAnimation.ValueChanged += OnValueChanged;
                     _layer.AddAnimation(_colorFilterAnimation);
                 }

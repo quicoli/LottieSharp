@@ -1,11 +1,7 @@
-﻿using Ionic.Zip;
-using SharpDX.Direct2D1;
+﻿using SharpDX.Direct2D1;
 using System;
 using System.Diagnostics;
-using System.IO;
-using System.IO.Compression;
 using System.Net.Http;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -107,7 +103,7 @@ namespace LottieSharp.Network
                             //file = await _networkCache.WriteTempCacheFileAsync(await response.Content.ReadAsStreamAsync().AsAsyncOperation().AsTask(cancellationToken), extension, cancellationToken);
                             //using (var stream = await file.OpenStreamForReadAsync().AsAsyncOperation().AsTask(cancellationToken))
                             //{
-                                result = await LottieCompositionFactory.FromZipStreamAsync(renderTarget, Ionic.Zip.ZipFile.Read(await response.Content.ReadAsStreamAsync()), _url);
+                            result = await LottieCompositionFactory.FromZipStreamAsync(renderTarget, Ionic.Zip.ZipFile.Read(await response.Content.ReadAsStreamAsync()), _url);
                             //}
                             break;
                         case "application/json":
@@ -117,7 +113,7 @@ namespace LottieSharp.Network
                             //file = await _networkCache.WriteTempCacheFileAsync(await response.Content.ReadAsStreamAsync().AsAsyncOperation().AsTask(cancellationToken), extension, cancellationToken);
                             //using (var stream = await file.OpenStreamForReadAsync().AsAsyncOperation().AsTask(cancellationToken))
                             //{
-                                result = await LottieCompositionFactory.FromJsonInputStreamAsync(await response.Content.ReadAsStreamAsync(), _url);
+                            result = await LottieCompositionFactory.FromJsonInputStreamAsync(await response.Content.ReadAsStreamAsync(), _url);
                             //}
                             break;
                     }

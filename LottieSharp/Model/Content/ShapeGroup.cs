@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using LottieSharp.Animation.Content;
+﻿using LottieSharp.Animation.Content;
 using LottieSharp.Model.Layer;
+using System.Collections.Generic;
 
 namespace LottieSharp.Model.Content
 {

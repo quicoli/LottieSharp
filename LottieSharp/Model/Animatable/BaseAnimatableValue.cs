@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Text;
+﻿using LottieSharp.Animation.Keyframe;
 using LottieSharp.Value;
-using LottieSharp.Animation.Keyframe;
+using System.Collections.Generic;
+using System.Text;
 
 namespace LottieSharp.Model.Animatable
 {

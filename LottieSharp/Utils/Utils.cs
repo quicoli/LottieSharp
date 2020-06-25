@@ -1,6 +1,6 @@
-﻿using System;
+﻿using LottieSharp.Animation.Content;
 using SharpDX;
-using LottieSharp.Animation.Content;
+using System;
 
 //TODO: OID: Totally replaced with new file
 

@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using SharpDX;
+﻿using SharpDX;
 using SharpDX.Direct2D1;
 using SharpDX.DirectWrite;
-using SharpDX.DXGI;
 using SharpDX.Mathematics.Interop;
+using System;
+using System.Collections.Generic;
+using System;
+using System.Collections.Generic;
 
 namespace LottieSharp.Animation.Content
 {
@@ -57,7 +58,10 @@ namespace LottieSharp.Animation.Content
         private readonly Stack<RenderTargetHolder> _canvasDrawingSessions = new Stack<RenderTargetHolder>();
 
         //internal RenderTarget OutputRenderTarget { get; private set; }
-        internal DeviceContext CurrentRenderTarget => _canvasDrawingSessions.Peek()?.RenderTarget;
+        internal DeviceContext CurrentRenderTarget =>
+            _canvasDrawingSessions.Count > 0 ?
+                _canvasDrawingSessions.Peek()?.RenderTarget :
+                null;
 
         public BitmapCanvas(float width, float height)
         {
@@ -373,8 +377,6 @@ namespace LottieSharp.Animation.Content
 
                 var renderTargetSave = _renderTargetSaves.Pop();
 
-                var target = renderTargetSave.RenderTarget.Target;
-
                 UpdateDrawingSessionWithFlags(renderTargetSave.PaintFlags);
                 CurrentRenderTarget.Transform = GetCurrentTransform();
 
@@ -385,7 +387,6 @@ namespace LottieSharp.Animation.Content
                     canvasComposite = PorterDuff.ToCanvasComposite(renderTargetSave.PaintXfermode.Mode);
                 }
 
-                var rect = new RawRectangleF(0, 0, renderTargetSave.RenderTarget.Size.Width, renderTargetSave.RenderTarget.Size.Height);
                 CurrentRenderTarget.DrawImage(drawingSession.Bitmap,
                     new RawVector2(0, 0),
                     new RectangleF(0, 0, renderTargetSave.RenderTarget.Size.Width, renderTargetSave.RenderTarget.Size.Height),
@@ -509,11 +510,15 @@ namespace LottieSharp.Animation.Content
 
         private void Dispose(bool disposing)
         {
-            //foreach (var renderTarget in _renderTargets)
-            //{
-            //    renderTarget.Value.Dispose();
-            //}
-            //_renderTargets.Clear();
+            foreach (var renderTarget in _renderTargets)
+            {
+                renderTarget.Value.RenderTarget.Dispose();
+                renderTarget.Value.RenderTarget = null;
+
+                renderTarget.Value.Bitmap.Dispose();
+                renderTarget.Value.Bitmap = null;
+            }
+            _renderTargets.Clear();
         }
 
         public void Dispose()
@@ -522,9 +527,5 @@ namespace LottieSharp.Animation.Content
             GC.SuppressFinalize(this);
         }
 
-        ~BitmapCanvas()
-        {
-            Dispose(false);
-        }
     }
 }

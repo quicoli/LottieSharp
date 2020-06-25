@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using SharpDX;
-using LottieSharp.Value;
-using LottieSharp.Model.Animatable;
+﻿using LottieSharp.Model.Animatable;
 using LottieSharp.Model.Content;
 using LottieSharp.Model.Layer;
+using LottieSharp.Value;
+using SharpDX;
+using System.Collections.Generic;
 
 namespace LottieSharp.Parser
 {

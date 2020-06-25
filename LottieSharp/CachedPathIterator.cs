@@ -1,6 +1,6 @@
-﻿using System;
+﻿using SharpDX;
+using System;
 using System.Collections.Generic;
-using SharpDX;
 
 namespace LottieSharp
 {
@@ -50,7 +50,7 @@ namespace LottieSharp
                 switch (_types[i])
                 {
                     case PathIterator.ContourType.Bezier:
-                        _segmentsLength[i] = (float)Path.BezierContour.BezLength(lastX, lastY, 
+                        _segmentsLength[i] = (float)Path.BezierContour.BezLength(lastX, lastY,
                             _coordinates[i][0], _coordinates[i][1],
                             _coordinates[i][2], _coordinates[i][3],
                             lastX = _coordinates[i][4], lastY = _coordinates[i][5]);
@@ -62,7 +62,7 @@ namespace LottieSharp
                             lastX = _coordinates[i][2], lastY = _coordinates[i][3]);
                         break;
                     case PathIterator.ContourType.Close:
-                        _segmentsLength[i] = Vector2.Distance(new Vector2(lastX, lastY), 
+                        _segmentsLength[i] = Vector2.Distance(new Vector2(lastX, lastY),
                             new Vector2(lastX = _coordinates[0][0], lastY = _coordinates[0][1]));
                         _coordinates[i] = new float[2];
                         // We convert a CloseContour segment to a LineContour so we do not have to worry

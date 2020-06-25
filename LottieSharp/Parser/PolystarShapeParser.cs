@@ -1,6 +1,6 @@
-﻿using SharpDX;
-using LottieSharp.Model.Animatable;
+﻿using LottieSharp.Model.Animatable;
 using LottieSharp.Model.Content;
+using SharpDX;
 
 namespace LottieSharp.Parser
 {

@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using SharpDX;
-using LottieSharp.Animation.Content;
+﻿using LottieSharp.Animation.Content;
 using LottieSharp.Animation.Keyframe;
 using LottieSharp.Value;
+using SharpDX;
+using System;
+using System.Collections.Generic;
 
 namespace LottieSharp.Model.Layer
 {

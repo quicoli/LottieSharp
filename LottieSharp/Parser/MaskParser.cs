@@ -1,6 +1,6 @@
-﻿using System.Diagnostics;
-using LottieSharp.Model.Animatable;
+﻿using LottieSharp.Model.Animatable;
 using LottieSharp.Model.Content;
+using System.Diagnostics;
 
 namespace LottieSharp.Parser
 {

@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using LottieSharp.Animation.Keyframe;
+﻿using LottieSharp.Animation.Keyframe;
 using LottieSharp.Value;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace LottieSharp.Parser
 {
@@ -78,7 +78,7 @@ namespace LottieSharp.Parser
                     keyframe.EndValue = nextKeyframe.StartValue;
                     (keyframe as PathKeyframe)?.CreatePath();
                 }
-    }
+            }
             var lastKeyframe = keyframes[size - 1];
             if ((lastKeyframe.StartValue == null || lastKeyframe.EndValue == null) && keyframes.Count > 1)
             {

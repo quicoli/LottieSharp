@@ -1,4 +1,12 @@
-﻿using SharpDX;
+﻿
+/* Unmerged change from project 'LottieSharp (netcoreapp3.0)'
+Before:
+using SharpDX;
+using Newtonsoft.Json;
+After:
+using Newtonsoft.Json;
+using SharpDX;
+*/
 using Newtonsoft.Json;
 using SharpDX;
 

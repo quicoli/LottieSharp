@@ -1,16 +1,16 @@
-﻿using System;
+﻿using LottieSharp.Model;
+using LottieSharp.Value;
+using SharpDX;
+using SharpDX.Direct2D1;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using SharpDX;
-using SharpDX.Direct2D1;
-using LottieSharp.Model;
-using LottieSharp.Value;
-using System.Windows.Controls;
 using System.Windows;
-using System.ComponentModel;
+using System.Windows.Controls;
 
 namespace LottieSharp
 {
@@ -87,7 +87,7 @@ namespace LottieSharp
                 await lottieAnimationView.SetAnimationAsync((string)e.NewValue);
             }
         }
-        
+
         public string Url
         {
             get { return (string)GetValue(UrlProperty); }
@@ -267,7 +267,7 @@ namespace LottieSharp
                     _lottieDrawable.PlayAnimation();
                 }
             }
-            
+
             _lottieDrawable.RepeatCount = RepeatCount;
 
             EnableMergePathsForKitKatAndAbove(false);
@@ -961,7 +961,7 @@ namespace LottieSharp
             var useHardwareLayer = _useHardwareLayer && _lottieDrawable.IsAnimating;
             _lottieDrawable.ForceSoftwareRenderer(!useHardwareLayer);
         }
-        
+
         private void Dispose(bool disposing)
         {
             _compositionTaskCTS?.Dispose();

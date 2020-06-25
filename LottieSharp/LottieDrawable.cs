@@ -1,3 +1,6 @@
+
+/* Unmerged change from project 'LottieSharp (netcoreapp3.0)'
+Before:
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -13,6 +16,37 @@ using LottieSharp.Utils;
 using LottieSharp.Value;
 using SharpDX;
 using SharpDX.Direct2D1;
+After:
+using LottieSharp.Animation.Content;
+using LottieSharp.Manager;
+using System.Model;
+using System.Model.Layer;
+using System.Parser;
+using LottieSharp.Utils;
+using LottieSharp.Value;
+using LottieSharp.WpfSurface;
+using SharpDX;
+using SharpDX.Direct2D1;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Windows.Controls;
+*/
+using LottieSharp.Animation.Content;
+using LottieSharp.Manager;
+using LottieSharp.Model;
+using LottieSharp.Model.Layer;
+using LottieSharp.Parser;
+using LottieSharp.Utils;
+using LottieSharp.Value;
+using LottieSharp.WpfSurface;
+using SharpDX;
+using SharpDX.Direct2D1;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 
 namespace LottieSharp
 {
@@ -62,7 +96,7 @@ namespace LottieSharp
                 }
             };
         }
-        
+
         public void ForceSoftwareRenderer(bool force)
         {
             _forceSoftwareRenderer = force;
@@ -228,7 +262,10 @@ namespace LottieSharp
 
         public void InvalidateSelf()
         {
-            //base.InvalidateVisual();
+            //if (Dispatcher.CheckAccess())
+            //    base.InvalidateVisual();
+            //else
+            //    Dispatcher.Invoke(InvalidateVisual);
         }
 
         public void SetAlpha(byte alpha)
@@ -257,7 +294,7 @@ namespace LottieSharp
                 {
                     return;
                 }
-                
+
                 using (_bitmapCanvas.CreateSession(target.Size.Width, target.Size.Height, (DeviceContext)target))
                 {
                     _bitmapCanvas.Clear(Color.Transparent);

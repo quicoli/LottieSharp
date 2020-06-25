@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using SharpDX;
+﻿using LottieSharp.Animation.Keyframe;
 using LottieSharp.Value;
-using LottieSharp.Animation.Keyframe;
+using SharpDX;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace LottieSharp.Model.Animatable
 {

@@ -1,5 +1,4 @@
-﻿using SharpDX;
-using SharpDX.Direct2D1;
+﻿using SharpDX.Direct2D1;
 using SharpDX.Direct3D;
 using SharpDX.Direct3D11;
 using SharpDX.DXGI;
@@ -7,10 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace LottieSharp.WpfSurface
@@ -154,10 +149,47 @@ namespace LottieSharp.WpfSurface
         }
 
         // - private methods -------------------------------------------------------------
+        private SharpDX.Direct3D11.Device TryCreateDevice(DriverType type)
+        {
+            // We'll try to create the device that supports any of these feature levels
+            SharpDX.Direct3D.FeatureLevel[] levels =
+            {
+                SharpDX.Direct3D.FeatureLevel.Level_10_1,
+                SharpDX.Direct3D.FeatureLevel.Level_10_0,
+                SharpDX.Direct3D.FeatureLevel.Level_9_3,
+                SharpDX.Direct3D.FeatureLevel.Level_9_2,
+                SharpDX.Direct3D.FeatureLevel.Level_9_1
+            };
+
+            foreach (var level in levels)
+            {
+                try
+                {
+                    //var device = new SharpDX.Direct3D10.Device1(factoryDXGI.GetAdapter(0), DeviceCreationFlags.BgraSupport, level);
+                    var device = new SharpDX.Direct3D11.Device(type, DeviceCreationFlags.BgraSupport, level);
+                    return device;
+                }
+                catch (ArgumentException) // E_INVALIDARG
+                {
+                    continue; // Try the next feature level
+                }
+                catch (OutOfMemoryException) // E_OUTOFMEMORY
+                {
+                    continue; // Try the next feature level
+                }
+                catch (Exception) // SharpDX.Direct3D10.Direct3D10Exception D3DERR_INVALIDCALL or E_FAIL
+                {
+                    continue; // Try the next feature level
+                }
+            }
+            return null; // We failed to create a device at any required feature level
+        }
+
 
         private void StartD3D()
         {
-            device = new SharpDX.Direct3D11.Device(DriverType.Hardware, DeviceCreationFlags.BgraSupport);
+            device = TryCreateDevice(DriverType.Software);
+            device = device ?? TryCreateDevice(DriverType.Hardware);
 
             d3DSurface = new Dx11ImageSource();
             d3DSurface.IsFrontBufferAvailableChanged += OnIsFrontBufferAvailableChanged;
@@ -257,6 +289,7 @@ namespace LottieSharp.WpfSurface
 
             RenderTarget.BeginDraw();
             Render(RenderTarget);
+            RenderTarget.Flush();
             RenderTarget.EndDraw();
 
             CalcFps();
@@ -278,7 +311,7 @@ namespace LottieSharp.WpfSurface
 
                 var fps = frameCountHistTotal / frameCountHist.Count;
                 Fps = fps;
-                
+
                 frameCount = 0;
                 lastFrameTime = renderTimer.ElapsedMilliseconds;
             }

@@ -1,13 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using SharpDX;
-using LottieSharp.Animation.Keyframe;
+﻿using LottieSharp.Animation.Keyframe;
 using LottieSharp.Model;
 using LottieSharp.Model.Content;
 using LottieSharp.Model.Layer;
 using LottieSharp.Utils;
 using LottieSharp.Value;
+
+/* Unmerged change from project 'LottieSharp (netcoreapp3.0)'
+Before:
 using SharpDX;
+After:
+using SharpDX;
+using SharpDX;
+using System;
+using System.Collections.Generic;
+*/
+using SharpDX;
+using System;
+using System.Collections.Generic;
 
 namespace LottieSharp.Animation.Content
 {

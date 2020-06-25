@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using LottieSharp.Animation.Keyframe;
+﻿using LottieSharp.Animation.Keyframe;
 using LottieSharp.Model;
 using LottieSharp.Model.Animatable;
 using LottieSharp.Model.Content;
 using LottieSharp.Model.Layer;
 using LottieSharp.Value;
 using SharpDX;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace LottieSharp.Animation.Content
 {

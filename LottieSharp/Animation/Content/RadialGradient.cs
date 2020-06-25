@@ -1,7 +1,13 @@
 using SharpDX;
+
+/* Unmerged change from project 'LottieSharp (netcoreapp3.0)'
+Before:
 using System;
-using SharpDX.Direct2D1;
+After:
 using SharpDX;
+*/
+using SharpDX.Direct2D1;
+using System;
 
 namespace LottieSharp.Animation.Content
 {

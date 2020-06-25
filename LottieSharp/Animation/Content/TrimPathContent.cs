@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using LottieSharp.Animation.Keyframe;
+﻿using LottieSharp.Animation.Keyframe;
 using LottieSharp.Model.Content;
 using LottieSharp.Model.Layer;
+using System;
+using System.Collections.Generic;
 
 namespace LottieSharp.Animation.Content
 {

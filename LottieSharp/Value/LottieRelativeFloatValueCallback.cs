@@ -1,5 +1,5 @@
-﻿using System;
-using LottieSharp.Utils;
+﻿using LottieSharp.Utils;
+using System;
 
 namespace LottieSharp.Value
 {

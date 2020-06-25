@@ -1,8 +1,8 @@
 ﻿namespace LottieSharp.Model.Content
 {
-	public enum GradientType
-	{
-	  Linear,
-	  Radial
-	}
+    public enum GradientType
+    {
+        Linear,
+        Radial
+    }
 }

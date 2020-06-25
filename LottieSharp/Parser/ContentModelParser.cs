@@ -1,5 +1,5 @@
-﻿using System.Diagnostics;
-using LottieSharp.Model.Content;
+﻿using LottieSharp.Model.Content;
+using System.Diagnostics;
 
 namespace LottieSharp.Parser
 {
@@ -29,7 +29,7 @@ namespace LottieSharp.Parser
                         break;
                 }
             }
-            typeLoop:
+        typeLoop:
 
             if (type == null)
             {

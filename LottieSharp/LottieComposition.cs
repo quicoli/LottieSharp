@@ -1,4 +1,7 @@
-﻿using System;
+﻿using LottieSharp.Model;
+using LottieSharp.Model.Layer;
+using SharpDX;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -6,9 +9,6 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using SharpDX;
-using LottieSharp.Model;
-using LottieSharp.Model.Layer;
 
 namespace LottieSharp
 {

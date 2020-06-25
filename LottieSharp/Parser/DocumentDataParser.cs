@@ -1,5 +1,5 @@
-﻿using SharpDX;
-using LottieSharp.Model;
+﻿using LottieSharp.Model;
+using SharpDX;
 
 namespace LottieSharp.Parser
 {

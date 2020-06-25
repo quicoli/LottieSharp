@@ -11,7 +11,7 @@
 
         public override T GetValue(LottieFrameInfo<T> frameInfo)
         {
-            if(_callback != null)
+            if (_callback != null)
                 return _callback.Invoke(frameInfo);
             return default(T);
         }

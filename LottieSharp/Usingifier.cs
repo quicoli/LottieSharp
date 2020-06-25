@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LottieSharp
 {
@@ -20,7 +16,7 @@ namespace LottieSharp
             _state = state;
             _cleanUp = cleanUp;
         }
-        
+
         public virtual void Dispose()
         {
             if (_disposed)

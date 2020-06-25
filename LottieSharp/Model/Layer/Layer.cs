@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using LottieSharp.Model.Animatable;
+using LottieSharp.Model.Content;
+using LottieSharp.Value;
+using SharpDX;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
-using SharpDX;
-using LottieSharp.Value;
-using LottieSharp.Model.Animatable;
-using LottieSharp.Model.Content;
 
 namespace LottieSharp.Model.Layer
 {

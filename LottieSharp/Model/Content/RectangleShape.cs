@@ -1,7 +1,7 @@
-﻿using SharpDX;
-using LottieSharp.Animation.Content;
+﻿using LottieSharp.Animation.Content;
 using LottieSharp.Model.Animatable;
 using LottieSharp.Model.Layer;
+using SharpDX;
 
 namespace LottieSharp.Model.Content
 {

@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using SharpDX;
+﻿using SharpDX;
 using SharpDX.Direct2D1;
 using SharpDX.Mathematics.Interop;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace LottieSharp
 {

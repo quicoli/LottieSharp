@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using LottieSharp.Utils;
+﻿using LottieSharp.Utils;
 using LottieSharp.Value;
 using SharpDX;
+using System.Collections.Generic;
 
 namespace LottieSharp.Animation.Keyframe
 {

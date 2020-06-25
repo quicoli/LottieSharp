@@ -1,7 +1,7 @@
 ﻿using LottieSharp.Value;
+using SharpDX;
 using System;
 using System.Collections.Generic;
-using SharpDX;
 
 namespace LottieSharp.Animation.Keyframe
 {
@@ -17,7 +17,7 @@ namespace LottieSharp.Animation.Keyframe
 
         public override Vector2? GetValue(Keyframe<Vector2?> keyframe, float keyframeProgress)
         {
-            var pathKeyframe = (PathKeyframe) keyframe;
+            var pathKeyframe = (PathKeyframe)keyframe;
             var path = pathKeyframe.Path;
             if (path == null || path.Contours.Count == 0)
             {

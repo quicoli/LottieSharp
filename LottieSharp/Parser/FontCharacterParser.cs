@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using LottieSharp.Model;
+﻿using LottieSharp.Model;
 using LottieSharp.Model.Content;
+using System;
+using System.Collections.Generic;
 
 namespace LottieSharp.Parser
 {

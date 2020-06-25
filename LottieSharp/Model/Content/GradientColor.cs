@@ -1,5 +1,5 @@
-﻿using SharpDX;
-using LottieSharp.Utils;
+﻿using LottieSharp.Utils;
+using SharpDX;
 
 namespace LottieSharp.Model.Content
 {
@@ -32,7 +32,7 @@ namespace LottieSharp.Model.Content
                 _positions[i] = MiscUtils.Lerp(gc1._positions[i], gc2._positions[i], progress);
 
                 var gamma = GammaEvaluator.Evaluate(progress, gc1._colors[i], gc2._colors[i]);
-                
+
                 _colors[i] = gamma;
             }
         }

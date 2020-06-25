@@ -1,5 +1,5 @@
-﻿using System;
-using SharpDX;
+﻿using SharpDX;
+using System;
 
 namespace LottieSharp.Model
 {

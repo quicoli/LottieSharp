@@ -1,10 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using SharpDX;
-using SharpDX;
-using LottieSharp.Animation.Keyframe;
+﻿using LottieSharp.Animation.Keyframe;
 using LottieSharp.Model.Content;
 using LottieSharp.Model.Layer;
+using SharpDX;
+
+/* Unmerged change from project 'LottieSharp (netcoreapp3.0)'
+Before:
+using LottieSharp.Animation.Keyframe;
+using LottieSharp.Model.Content;
+After:
+using SharpDX;
+using System;
+*/
+using System;
+using System.Collections.Generic;
 
 namespace LottieSharp.Animation.Content
 {
@@ -25,7 +33,7 @@ namespace LottieSharp.Animation.Content
         private readonly IBaseKeyframeAnimation<Vector2?, Vector2?> _startPointAnimation;
         private readonly IBaseKeyframeAnimation<Vector2?, Vector2?> _endPointAnimation;
 
-        internal GradientStrokeContent(LottieDrawable lottieDrawable, BaseLayer layer, GradientStroke stroke) 
+        internal GradientStrokeContent(LottieDrawable lottieDrawable, BaseLayer layer, GradientStroke stroke)
             : base(lottieDrawable, layer, ShapeStroke.LineCapTypeToPaintCap(stroke.CapType), ShapeStroke.LineJoinTypeToPaintLineJoin(stroke.JoinType), stroke.MiterLimit, stroke.Opacity, stroke.Width, stroke.LineDashPattern, stroke.DashOffset)
         {
             Name = stroke.Name;
