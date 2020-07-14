@@ -55,7 +55,7 @@ namespace LottieSharp.WpfSurface
                 {
 
                     base.Lock();
-                    base.SetBackBuffer(D3DResourceType.IDirect3DSurface9, surface.NativePointer);
+                    base.SetBackBuffer(D3DResourceType.IDirect3DSurface9, surface.NativePointer, true);
                     if (RenderWait != 0)
                     {
                         Thread.Sleep(RenderWait);
@@ -71,7 +71,7 @@ namespace LottieSharp.WpfSurface
             using (var surface = renderTarget.GetSurfaceLevel(0))
             {
                 base.Lock();
-                base.SetBackBuffer(D3DResourceType.IDirect3DSurface9, surface.NativePointer);
+                base.SetBackBuffer(D3DResourceType.IDirect3DSurface9, surface.NativePointer, true);
                 base.Unlock();
             }
         }
@@ -83,7 +83,7 @@ namespace LottieSharp.WpfSurface
                 renderTarget = null;
 
                 base.Lock();
-                base.SetBackBuffer(D3DResourceType.IDirect3DSurface9, IntPtr.Zero);
+                base.SetBackBuffer(D3DResourceType.IDirect3DSurface9, IntPtr.Zero, true);
                 base.Unlock();
             }
 
@@ -115,7 +115,7 @@ namespace LottieSharp.WpfSurface
             using (var surface = renderTarget.GetSurfaceLevel(0))
             {
                 base.Lock();
-                base.SetBackBuffer(D3DResourceType.IDirect3DSurface9, surface.NativePointer);
+                base.SetBackBuffer(D3DResourceType.IDirect3DSurface9, surface.NativePointer, true);
                 base.Unlock();
             }
         }
