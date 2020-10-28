@@ -242,6 +242,10 @@ namespace LottieSharp.WpfSurface
                 ArraySize = 1
             };
 
+            var isSupported = device.CheckFormatSupport(renderDesc.Format).HasFlag(FormatSupport.RenderTarget);
+            if (!isSupported)
+                throw new NotSupportedException("Not supported format");
+
             renderTarget = new Texture2D(device, renderDesc);
 
             var surface = renderTarget.QueryInterface<Surface>();
