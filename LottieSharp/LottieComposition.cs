@@ -111,7 +111,7 @@ namespace LottieSharp
                 item.Value.Bitmap = null;
             }
 
-            foreach(var item in Characters)
+            foreach (var item in Characters)
             {
             }
         }

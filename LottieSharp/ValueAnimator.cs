@@ -108,7 +108,7 @@ namespace LottieSharp
             return nano;
         }
 
-        private void Dispose(bool disposing)
+        protected virtual void Disposing(bool disposing)
         {
             if (_timer != null)
             {
@@ -119,13 +119,8 @@ namespace LottieSharp
 
         public void Dispose()
         {
-            Dispose(true);
+            Disposing(true);
             GC.SuppressFinalize(this);
-        }
-
-        ~ValueAnimator()
-        {
-            Dispose(false);
         }
     }
 }

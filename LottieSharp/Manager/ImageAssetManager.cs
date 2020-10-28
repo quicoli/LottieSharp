@@ -7,7 +7,6 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Windows.Media;
 /* Unmerged change from project 'LottieSharp (netcoreapp3.0)'
 Before:
 using System.Threading.Tasks;

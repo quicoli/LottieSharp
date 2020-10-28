@@ -3,9 +3,14 @@ using SharpDX.Direct2D1;
 using SharpDX.DirectWrite;
 using SharpDX.Mathematics.Interop;
 using System;
-using System.Collections.Generic;
 using System;
+/* Unmerged change from project 'LottieSharp (netcoreapp3.0)'
+Before:
+using System;
+After:
 using System.Collections.Generic;
+*/
+
 
 namespace LottieSharp.Animation.Content
 {

@@ -111,16 +111,16 @@ namespace LottieSharp.Animation.Content
                 }
 
 
-/* Unmerged change from project 'LottieSharp (netcoreapp3.0)'
-Before:
-                _path.LineTo(position.X - halfWidth + radius, position.Y + halfHeight);
-                
-                if (radius > 0)
-After:
-                _path.LineTo(position.X - halfWidth + radius, position.Y + halfHeight);
+                /* Unmerged change from project 'LottieSharp (netcoreapp3.0)'
+                Before:
+                                _path.LineTo(position.X - halfWidth + radius, position.Y + halfHeight);
 
-                if (radius > 0)
-*/
+                                if (radius > 0)
+                After:
+                                _path.LineTo(position.X - halfWidth + radius, position.Y + halfHeight);
+
+                                if (radius > 0)
+                */
                 _path.LineTo(position.X - halfWidth + radius, position.Y + halfHeight);
 
                 if (radius > 0)
@@ -136,16 +136,16 @@ After:
                     RectExt.Set(ref _rect, position.X - halfWidth, position.Y - halfHeight, position.X - halfWidth + 2 * radius, position.Y - halfHeight + 2 * radius);
                     _path.ArcTo(position.X - halfWidth, position.Y - halfHeight + radius, _rect, 180, 90);
 
-/* Unmerged change from project 'LottieSharp (netcoreapp3.0)'
-Before:
-                }
-                
-                _path.LineTo(position.X + halfWidth - radius, position.Y - halfHeight);
-After:
-                }
+                    /* Unmerged change from project 'LottieSharp (netcoreapp3.0)'
+                    Before:
+                                    }
 
-                _path.LineTo(position.X + halfWidth - radius, position.Y - halfHeight);
-*/
+                                    _path.LineTo(position.X + halfWidth - radius, position.Y - halfHeight);
+                    After:
+                                    }
+
+                                    _path.LineTo(position.X + halfWidth - radius, position.Y - halfHeight);
+                    */
                 }
 
                 _path.LineTo(position.X + halfWidth - radius, position.Y - halfHeight);
