@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -13,6 +14,13 @@ namespace LottieSharp.Sample
         {
             InitializeComponent();
             LottieAnimationView.UseHardwareAcceleration(true);
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+            LottieAnimationView.Dispose();
+            DataContext = null;
         }
 
         private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)

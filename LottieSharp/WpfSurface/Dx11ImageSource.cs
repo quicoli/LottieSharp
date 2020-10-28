@@ -15,6 +15,7 @@ namespace LottieSharp.WpfSurface
         private static DeviceEx D3DDevice;
 
         private Texture renderTarget;
+        private bool _disposed;
 
         // - property --------------------------------------------------------------------
 
@@ -37,6 +38,9 @@ namespace LottieSharp.WpfSurface
 
         public void Dispose()
         {
+            if (_disposed) return;
+            _disposed = true;
+
             SetRenderTarget(null);
 
             Disposer.SafeDispose(ref renderTarget);

@@ -103,6 +103,19 @@ namespace LottieSharp
             return sb.ToString();
         }
 
+        public void Dispose()
+        {
+            foreach (var item in _images)
+            {
+                item.Value.Bitmap.Dispose();
+                item.Value.Bitmap = null;
+            }
+
+            foreach(var item in Characters)
+            {
+            }
+        }
+
         /// <summary>
         /// This will be removed in the next version of Lottie. <see cref="LottieCompositionFactory"/> has improved
         /// API names, failure handlers, and will return in-progress tasks so you will never parse the same

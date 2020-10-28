@@ -60,7 +60,7 @@ namespace LottieSharp
     /// of compositions.
     /// </para>
     /// </summary>
-    public class LottieDrawable : D2dControl, IAnimatable, IDisposable
+    public class LottieDrawable : D2dControl, IAnimatable
     {
         private Matrix3X3 _matrix = Matrix3X3.CreateIdentity();
         private LottieComposition _composition;
@@ -931,8 +931,9 @@ namespace LottieSharp
             return Math.Min(maxScaleX, maxScaleY);
         }
 
-        private void Dispose(bool disposing)
+        protected override void Dispose(bool disposing)
         {
+            base.Dispose(disposing);
             _animator.Dispose();
             _imageAssetManager?.Dispose();
 
@@ -944,17 +945,6 @@ namespace LottieSharp
             }
 
             ClearComposition();
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        ~LottieDrawable()
-        {
-            Dispose(false);
         }
 
         private class ColorFilterData

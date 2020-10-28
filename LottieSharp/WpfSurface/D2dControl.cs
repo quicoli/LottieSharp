@@ -10,7 +10,7 @@ using System.Windows;
 
 namespace LottieSharp.WpfSurface
 {
-    public abstract class D2dControl : System.Windows.Controls.Image
+    public abstract class D2dControl : System.Windows.Controls.Image, IDisposable
     {
         // - field -----------------------------------------------------------------------
 
@@ -315,6 +315,23 @@ namespace LottieSharp.WpfSurface
                 frameCount = 0;
                 lastFrameTime = renderTimer.ElapsedMilliseconds;
             }
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            device?.Dispose();
+            renderTarget?.Dispose();
+            d3DSurface?.Dispose();
+            d2DRenderTarget?.Dispose();
+            d2DFactory?.Dispose();
+
+            resCache?.Clear();
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }
