@@ -452,16 +452,6 @@ namespace LottieSharp
             return _useHardwareLayer;
         }
 
-        /// <summary>
-        /// cacheStrategy is deprecated. Compositions are now cached by default.
-        /// <see cref="SetAnimationAsync(string)"/>
-        /// </summary>
-        [Obsolete]
-        public virtual async Task SetAnimationAsync(string animationName, CacheStrategy cacheStrategy)
-        {
-            await SetAnimationAsync(animationName, DefaultCacheStrategy);
-        }
-
         public virtual async Task SetAnimationAsync(string assetName)
         {
             _animationName = assetName;
@@ -498,15 +488,6 @@ namespace LottieSharp
         }
 
         /// <summary>
-        /// <see cref="SetAnimationFromJsonAsync(string, string)"/>
-        /// </summary>
-        [Obsolete]
-        public async Task SetAnimationFromJsonAsync(string jsonString)
-        {
-            await SetAnimationFromJsonAsync(jsonString, null);
-        }
-
-        /// <summary>
         /// Sets the animation from json string. This is the ideal API to use when loading an animation 
         /// over the network because you can use the raw response body here and a converstion to a
         /// JsonObject never has to be done.
@@ -515,12 +496,6 @@ namespace LottieSharp
         public async Task SetAnimationFromJsonAsync(string jsonString, string cacheKey)
         {
             await SetAnimationAsync(new JsonReader(new StringReader(jsonString)), cacheKey);
-        }
-
-        [Obsolete]
-        public virtual async Task SetAnimationAsync(JsonReader reader)
-        {
-            await SetAnimationAsync(reader, null);
         }
 
         /// <summary>
@@ -797,27 +772,6 @@ namespace LottieSharp
         }
 
         /// <summary>
-        /// <see cref="RepeatCount"/>
-        /// </summary>
-        [Obsolete]
-        public bool Loop
-        {
-            get => (bool)GetValue(LoopProperty);
-            set => SetValue(LoopProperty, value);
-        }
-
-        // Using a DependencyProperty as the backing store for Loop.  This enables animation, styling, binding, etc...
-        [Obsolete]
-        public static readonly DependencyProperty LoopProperty =
-            DependencyProperty.Register("Loop", typeof(bool), typeof(LottieAnimationView), new PropertyMetadata(false, LoopPropertyChangedCallback));
-
-        private static void LoopPropertyChangedCallback(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
-        {
-            if (dependencyObject is LottieAnimationView lottieAnimationView && (bool)e.NewValue)
-                lottieAnimationView._lottieDrawable.RepeatCount = LottieDrawable.Infinite;
-        }
-
-        /// <summary>
         /// Defines what this animation should do when it reaches the end. This 
         /// setting is applied only when the repeat count is either greater than 
         /// 0 or <see cref="LottieSharp.RepeatMode.Infinite"/>. Defaults to <see cref="LottieSharp.RepeatMode.Restart"/>.
@@ -966,6 +920,8 @@ namespace LottieSharp
         {
             _compositionTaskCTS?.Dispose();
             _lottieDrawable.Dispose();
+
+            _composition = null;
         }
 
         public void Dispose()
@@ -973,69 +929,5 @@ namespace LottieSharp
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-
-        ~LottieAnimationView()
-        {
-            Dispose(false);
-        }
-
-        //protected override AutomationPeer OnCreateAutomationPeer()
-        //{
-        //    return new FrameworkElementAutomationPeer(this);
-        //}
-
-        //private class SavedState : BaseSavedState
-        //{
-        //    internal string animationName;
-        //    internal float progress;
-        //    internal bool isAnimating;
-        //    internal string imageAssetsFolder;
-        //    internal int repeatMode; 
-        //    internal int repeatCount;
-
-        //    internal SavedState(Parcelable superState) : base(superState)
-        //    {
-        //    }
-
-        //    internal SavedState(Parcel @in) : base(@in)
-        //    {
-        //        animationName = @in.readString();
-        //        progress = @in.readFloat();
-        //        isAnimating = @in.readInt() == 1;
-        //        imageAssetsFolder = @in.readString();
-        //        repeatMode = in.readInt();
-        //        repeatCount = in.readInt();
-        //    }
-
-        //    public void writeToParcel(Parcel @out, int flags)
-        //    {
-        //        base.writeToParcel(@out, flags);
-        //        @out.writeString(animationName);
-        //        @out.writeFloat(progress);
-        //        @out.writeInt(isAnimating ? 1 : 0);
-        //        @out.writeString(imageAssetsFolder);
-        //        @out.writeInt(repeatMode);
-        //        @out.writeInt(repeatCount);
-        //    }
-
-        //    public static readonly Parcelable.Creator<SavedState> CREATOR = new CreatorAnonymousInnerClass();
-
-        //    private class CreatorAnonymousInnerClass : Parcelable.Creator<SavedState>
-        //    {
-        //        public CreatorAnonymousInnerClass()
-        //        {
-        //        }
-
-        //        public virtual SavedState createFromParcel(Parcel @in)
-        //        {
-        //            return new SavedState(@in);
-        //        }
-
-        //        public virtual SavedState[] newArray(int size)
-        //        {
-        //            return new SavedState[size];
-        //        }
-        //    }
-        //}
     }
 }

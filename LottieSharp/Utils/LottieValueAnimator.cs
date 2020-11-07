@@ -323,5 +323,12 @@ namespace LottieSharp.Utils
                 throw new InvalidOperationException($"Frame must be [{_minFrame},{_maxFrame}]. It is {_frame}");
             }
         }
+
+        protected override void Disposing(bool disposing)
+        {
+            base.Disposing(disposing);
+            _composition?.Dispose();
+            _composition = null;
+        }
     }
 }

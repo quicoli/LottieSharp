@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 
 namespace LottieSharp.Sample
 {
@@ -15,7 +16,10 @@ namespace LottieSharp.Sample
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             var window = new MainWindow();
-            window.Show();
+            window.ShowDialog();
+
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
         }
     }
 }

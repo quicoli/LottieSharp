@@ -12,7 +12,7 @@ namespace LottieSharp.Parser
         public static Layer Parse(LottieComposition composition)
         {
             var bounds = composition.Bounds;
-            return new Layer(new List<IContentModel>(), composition, "__container", -1, Layer.LayerType.PreComp, -1, null, new List<Mask>(), new AnimatableTransform(), 0, 0, default(Color), 0, 0, (int)bounds.Width, (int)bounds.Height, null, null, new List<Keyframe<float?>>(), Layer.MatteType.None, null);
+            return new Layer(new List<IContentModel>(), composition, "__container", -1, Layer.LayerType.PreComp, -1, null, new List<Mask>(), new AnimatableTransform(), 0, 0, default(Color), 0, 0, (int)bounds.Width, (int)bounds.Height, null, null, new List<Keyframe<float?>>(), Layer.MatteType.None, null, false);
         }
 
         public static Layer Parse(JsonReader reader, LottieComposition composition)
@@ -32,6 +32,7 @@ namespace LottieSharp.Parser
             float inFrame = 0f;
             float outFrame = 0f;
             string cl = null;
+            bool hidden = false;
 
             Layer.MatteType matteType = Layer.MatteType.None;
             AnimatableTransform transform = null;
@@ -182,6 +183,9 @@ namespace LottieSharp.Parser
                     case "cl":
                         cl = reader.NextString();
                         break;
+                    case "hd":
+                        hidden = reader.NextBoolean();
+                        break;
                     default:
                         reader.SkipValue();
                         break;
@@ -216,7 +220,7 @@ namespace LottieSharp.Parser
                 composition.AddWarning("Convert your Illustrator layers to shape layers.");
             }
 
-            return new Layer(shapes, composition, layerName, layerId, layerType, parentId, refId, masks, transform, solidWidth, solidHeight, solidColor, timeStretch, startFrame, preCompWidth, preCompHeight, text, textProperties, inOutKeyframes, matteType, timeRemapping);
+            return new Layer(shapes, composition, layerName, layerId, layerType, parentId, refId, masks, transform, solidWidth, solidHeight, solidColor, timeStretch, startFrame, preCompWidth, preCompHeight, text, textProperties, inOutKeyframes, matteType, timeRemapping, hidden);
         }
     }
 }

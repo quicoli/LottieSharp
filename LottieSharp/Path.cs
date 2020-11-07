@@ -356,7 +356,7 @@ namespace LottieSharp
             //    FillRule = path.FillType == PathFillType.EvenOdd ? FillRule.EvenOdd : FillRule.Nonzero,
             var geometry = new PathGeometry(factory);
 
-            var canvasPathBuilder = geometry.Open();
+            using var canvasPathBuilder = geometry.Open();
             canvasPathBuilder.SetFillMode(fill);
 
             var closed = true;
@@ -370,7 +370,6 @@ namespace LottieSharp
                 canvasPathBuilder.EndFigure(FigureEnd.Open);
 
             canvasPathBuilder.Close();
-            canvasPathBuilder.Dispose();
 
             return geometry;
         }

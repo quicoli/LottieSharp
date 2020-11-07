@@ -115,6 +115,16 @@ namespace LottieSharp
                 _timer.Dispose();
                 _timer = null;
             }
+
+
+            if (Update != null)
+                foreach (EventHandler<ValueAnimatorUpdateEventArgs> handler in Update.GetInvocationList())
+                    Update -= handler;
+
+            if (ValueChanged != null)
+                foreach (EventHandler handler in ValueChanged.GetInvocationList())
+                    ValueChanged -= handler;
+
         }
 
         public void Dispose()
