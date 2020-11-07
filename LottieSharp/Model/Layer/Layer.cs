@@ -2,13 +2,14 @@
 using LottieSharp.Model.Content;
 using LottieSharp.Value;
 using SharpDX;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 
 namespace LottieSharp.Model.Layer
 {
-    public class Layer
+    public class Layer : IDisposable
     {
         public enum LayerType
         {
@@ -29,12 +30,13 @@ namespace LottieSharp.Model.Layer
             Unknown
         }
 
-        private readonly List<IContentModel> _shapes;
-        private readonly LottieComposition _composition;
+        private List<IContentModel> _shapes;
+        private LottieComposition _composition;
         private readonly LayerType _layerType;
         private readonly MatteType _matteType;
+        private bool disposedValue;
 
-        public Layer(List<IContentModel> shapes, LottieComposition composition, string layerName, long layerId, LayerType layerType, long parentId, string refId, List<Mask> masks, AnimatableTransform transform, int solidWidth, int solidHeight, Color solidColor, float timeStretch, float startFrame, int preCompWidth, int preCompHeight, AnimatableTextFrame text, AnimatableTextProperties textProperties, List<Keyframe<float?>> inOutKeyframes, MatteType matteType, AnimatableFloatValue timeRemapping)
+        public Layer(List<IContentModel> shapes, LottieComposition composition, string layerName, long layerId, LayerType layerType, long parentId, string refId, List<Mask> masks, AnimatableTransform transform, int solidWidth, int solidHeight, Color solidColor, float timeStretch, float startFrame, int preCompWidth, int preCompHeight, AnimatableTextFrame text, AnimatableTextProperties textProperties, List<Keyframe<float?>> inOutKeyframes, MatteType matteType, AnimatableFloatValue timeRemapping, bool hidden)
         {
             _shapes = shapes;
             _composition = composition;
@@ -57,6 +59,7 @@ namespace LottieSharp.Model.Layer
             InOutKeyframes = inOutKeyframes;
             _matteType = matteType;
             TimeRemapping = timeRemapping;
+            Hidden = hidden;
         }
 
         internal virtual LottieComposition Composition => _composition;
@@ -84,6 +87,8 @@ namespace LottieSharp.Model.Layer
         internal virtual AnimatableTextProperties TextProperties { get; }
 
         internal virtual AnimatableFloatValue TimeRemapping { get; }
+
+        internal virtual bool Hidden { get; }
 
         internal virtual List<Mask> Masks { get; }
 
@@ -147,6 +152,33 @@ namespace LottieSharp.Model.Layer
                 }
             }
             return sb.ToString();
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    _composition = null;
+
+                    if (_shapes != null)
+                    {
+                        foreach (var shape in _shapes)
+                            (shape as IDisposable)?.Dispose();
+
+                        _shapes.Clear();
+                        _shapes = null;
+                    }
+
+                    disposedValue = true;
+                }
+            }
+        }
+        public void Dispose()
+        {
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
     }
 }

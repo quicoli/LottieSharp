@@ -4,8 +4,7 @@ using SharpDX.DirectWrite;
 using SharpDX.Mathematics.Interop;
 using System;
 using System.Collections.Generic;
-using System;
-using System.Collections.Generic;
+
 
 namespace LottieSharp.Animation.Content
 {

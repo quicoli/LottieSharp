@@ -1,22 +1,5 @@
 ﻿using LottieSharp.Animation.Content;
 using LottieSharp.Animation.Keyframe;
-
-/* Unmerged change from project 'LottieSharp (netcoreapp3.0)'
-Before:
-using System.Diagnostics;
-using SharpDX;
-using LottieSharp.Animation.Content;
-using LottieSharp.Animation.Keyframe;
-using LottieSharp.Model.Content;
-using LottieSharp.Value;
-After:
-using LottieSharp.Model.Content;
-using LottieSharp.Value;
-using SharpDX;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-*/
 using LottieSharp.Model.Content;
 using LottieSharp.Value;
 using SharpDX;
@@ -25,7 +8,7 @@ using System.Collections.Generic;
 
 namespace LottieSharp.Model.Layer
 {
-    public abstract class BaseLayer : IDrawingContent, IKeyPathElement
+    public abstract class BaseLayer : IDrawingContent, IKeyPathElement, IDisposable
     {
         private static readonly int SaveFlags = BitmapCanvas.ClipSaveFlag | BitmapCanvas.ClipToLayerSaveFlag | BitmapCanvas.MatrixSaveFlag;
 
@@ -76,6 +59,7 @@ namespace LottieSharp.Model.Layer
         private readonly List<IBaseKeyframeAnimation> _animations = new List<IBaseKeyframeAnimation>();
         internal readonly TransformKeyframeAnimation Transform;
         private bool _visible = true;
+        private bool disposedValue;
 
         internal BaseLayer(LottieDrawable lottieDrawable, Layer layerModel)
         {
@@ -505,6 +489,48 @@ namespace LottieSharp.Model.Layer
         public virtual void AddValueCallback<T>(LottieProperty property, ILottieValueCallback<T> callback)
         {
             Transform.ApplyValueCallback(property, callback);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    
+                    _contentPaint.Dispose();
+                    _addMaskPaint.Dispose();
+                    _subtractMaskPaint.Dispose();
+                    _mattePaint.Dispose();
+                    _clearPaint.Dispose();
+
+                    LayerModel?.Dispose();
+                    LayerModel = null;
+
+                    _matteLayer?.Dispose();
+                    _matteLayer = null;
+
+                    _parentLayer?.Dispose(); 
+                    _parentLayer = null;
+
+                    if (_parentLayers != null)
+                    {
+                        foreach (var item in _parentLayers)
+                            item.Dispose();
+                        _parentLayers.Clear();
+                        _parentLayers = null;
+                    }
+
+                    _animations.Clear();
+                }
+                disposedValue = true;
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
     }
 }

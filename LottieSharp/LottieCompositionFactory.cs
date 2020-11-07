@@ -11,6 +11,7 @@ using System.IO.Compression;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace LottieSharp
 {
@@ -226,7 +227,8 @@ namespace LottieSharp
                     }
                     else if (entry.FileName.Contains(".json"))
                     {
-                        composition = FromJsonInputStreamSync(entry.InputStream, cacheKey, false).Value;
+                        using var reader = entry.OpenReader();
+                        composition = FromJsonInputStreamSync(reader, cacheKey, false).Value;
                     }
                     else if (entry.FileName.Contains(".png"))
                     {

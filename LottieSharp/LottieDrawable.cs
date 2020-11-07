@@ -1,38 +1,3 @@
-
-/* Unmerged change from project 'LottieSharp (netcoreapp3.0)'
-Before:
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Windows.Controls;
-using LottieSharp.WpfSurface;
-using LottieSharp.Animation.Content;
-using LottieSharp.Manager;
-using LottieSharp.Model;
-using LottieSharp.Model.Layer;
-using LottieSharp.Parser;
-using LottieSharp.Utils;
-using LottieSharp.Value;
-using SharpDX;
-using SharpDX.Direct2D1;
-After:
-using LottieSharp.Animation.Content;
-using LottieSharp.Manager;
-using System.Model;
-using System.Model.Layer;
-using System.Parser;
-using LottieSharp.Utils;
-using LottieSharp.Value;
-using LottieSharp.WpfSurface;
-using SharpDX;
-using SharpDX.Direct2D1;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Windows.Controls;
-*/
 using LottieSharp.Animation.Content;
 using LottieSharp.Manager;
 using LottieSharp.Model;
@@ -60,7 +25,7 @@ namespace LottieSharp
     /// of compositions.
     /// </para>
     /// </summary>
-    public class LottieDrawable : D2dControl, IAnimatable, IDisposable
+    public class LottieDrawable : D2dControl, IAnimatable
     {
         private Matrix3X3 _matrix = Matrix3X3.CreateIdentity();
         private LottieComposition _composition;
@@ -613,16 +578,6 @@ namespace LottieSharp
         }
 
         /// <summary>
-        /// <see cref="RepeatCount"/>
-        /// </summary>
-        [Obsolete]
-        public virtual bool Looping
-        {
-            get => _animator.RepeatCount == Infinite;
-            set => _animator.RepeatCount = value ? Infinite : 0;
-        }
-
-        /// <summary>
         /// Defines what this animation should do when it reaches the end. This
         /// setting is applied only when the repeat count is either greater than
         /// 0 or <see cref="LottieSharp.RepeatMode.Infinite"/>. Defaults to <see cref="LottieSharp.RepeatMode.Restart"/>.
@@ -931,30 +886,21 @@ namespace LottieSharp
             return Math.Min(maxScaleX, maxScaleY);
         }
 
-        private void Dispose(bool disposing)
+        protected override void Dispose(bool disposing)
         {
-            _animator.Dispose();
+            base.Dispose(disposing);
+            
             _imageAssetManager?.Dispose();
+            _imageAssetManager = null;
 
+            _composition = null;
 
-            if (_bitmapCanvas != null)
-            {
-                _bitmapCanvas.Dispose();
-                _bitmapCanvas = null;
-            }
+            _bitmapCanvas?.Dispose();
+            _bitmapCanvas = null;
+
+            _compositionLayer = null;
 
             ClearComposition();
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        ~LottieDrawable()
-        {
-            Dispose(false);
         }
 
         private class ColorFilterData

@@ -219,5 +219,17 @@ namespace LottieSharp.Model.Layer
                 }
             }
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+            if (disposing)
+            {
+                foreach (var item in _layers)
+                    item.Dispose();
+
+                _layers.Clear();
+            }
+        }
     }
 }

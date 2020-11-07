@@ -1,9 +1,12 @@
-﻿using SharpDX.Direct2D1;
+﻿using SharpDX;
+using SharpDX.Direct2D1;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 /* Unmerged change from project 'LottieSharp (netcoreapp3.0)'
 Before:
 using System.Threading.Tasks;
@@ -119,9 +122,7 @@ namespace LottieSharp.Manager
                         return null;
                     }
 
-                    //TODO: OID: Check this way is ok or not
-                    bitmap = new Bitmap(renderTarget, new SharpDX.Size2(0, 0));
-                    bitmap.CopyFromMemory(data, 160);
+                    bitmap = LoadFromBuffer(renderTarget, data);
 
                     PutBitmap(id, bitmap);
                     return bitmap;
@@ -142,15 +143,60 @@ namespace LottieSharp.Manager
                     return null;
                 }
 
-                //TODO: OID: Check this way is ok or not
-                bitmap = new Bitmap(renderTarget, new SharpDX.Size2(0, 0));
-                bitmap.CopyFromStream(@is, 160, (int)@is.Length);
+                bitmap = LoadFromStream(renderTarget, @is);
 
                 @is.Dispose();
 
                 PutBitmap(id, bitmap);
 
                 return bitmap;
+            }
+        }
+
+        public static Bitmap LoadFromBuffer(RenderTarget renderTarget, byte[] buffer)
+        {
+            // Loads from file using System.Drawing.Image
+            using (var stream = new MemoryStream(buffer))
+                return LoadFromStream(renderTarget, stream);
+        }
+
+        public static Bitmap LoadFromStream(RenderTarget renderTarget, Stream stream)
+        {
+            // Loads from file using System.Drawing.Image
+            using (var bitmap = (System.Drawing.Bitmap)System.Drawing.Image.FromStream(stream))
+            {
+                var sourceArea = new System.Drawing.Rectangle(0, 0, bitmap.Width, bitmap.Height);
+                var bitmapProperties = new BitmapProperties(new SharpDX.Direct2D1.PixelFormat(SharpDX.DXGI.Format.R8G8B8A8_UNorm, AlphaMode.Premultiplied));
+                var size = new SharpDX.Size2(bitmap.Width, bitmap.Height);
+
+                // Transform pixels from BGRA to RGBA
+                int stride = bitmap.Width * sizeof(int);
+                using (var tempStream = new DataStream(bitmap.Height * stride, true, true))
+                {
+                    // Lock System.Drawing.Bitmap
+                    var bitmapData = bitmap.LockBits(sourceArea, ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppPArgb);
+
+                    // Convert all pixels 
+                    for (int y = 0; y < bitmap.Height; y++)
+                    {
+                        int offset = bitmapData.Stride * y;
+                        for (int x = 0; x < bitmap.Width; x++)
+                        {
+                            // Not optimized 
+                            byte B = Marshal.ReadByte(bitmapData.Scan0, offset++);
+                            byte G = Marshal.ReadByte(bitmapData.Scan0, offset++);
+                            byte R = Marshal.ReadByte(bitmapData.Scan0, offset++);
+                            byte A = Marshal.ReadByte(bitmapData.Scan0, offset++);
+                            int rgba = R | (G << 8) | (B << 16) | (A << 24);
+                            tempStream.Write(rgba);
+                        }
+
+                    }
+                    bitmap.UnlockBits(bitmapData);
+                    tempStream.Position = 0;
+
+                    return new Bitmap(renderTarget, size, tempStream, stride, bitmapProperties);
+                }
             }
         }
 

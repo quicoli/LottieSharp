@@ -64,5 +64,26 @@ namespace LottieSharp.Utils
         {
             AnimationCancel?.Invoke(this, EventArgs.Empty);
         }
+
+        protected override void Disposing(bool disposing)
+        {
+            base.Disposing(disposing);
+
+            if (AnimationStart != null)
+                foreach (EventHandler<LottieAnimatorStartEventArgs> handler in AnimationStart.GetInvocationList())
+                    AnimationStart -= handler;
+
+            if (AnimationEnd != null)
+                foreach (EventHandler<LottieAnimatorEndEventArgs> handler in AnimationEnd.GetInvocationList())
+                    AnimationEnd -= handler;
+
+            if (AnimationCancel != null)
+                foreach (EventHandler handler in AnimationCancel.GetInvocationList())
+                    AnimationCancel -= handler;
+
+            if (AnimationRepeat != null)
+                foreach (EventHandler handler in AnimationRepeat.GetInvocationList())
+                    AnimationRepeat -= handler;
+        }
     }
 }

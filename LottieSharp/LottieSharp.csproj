@@ -15,6 +15,7 @@
     <Version>1.1.2</Version>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>LottieSharpKey.snk</AssemblyOriginatorKeyFile>
+    <LangVersion>8.0</LangVersion>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.0'">

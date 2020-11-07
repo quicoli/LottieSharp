@@ -20,7 +20,10 @@
 
         public LottieComposition Get(string assetName)
         {
-            return _cache.Get(assetName);
+            var layer = _cache.Get(assetName);
+            if (layer?.Disposed ?? true)
+                return null;
+            return layer;
         }
 
         public void Put(int rawRes, LottieComposition composition)
