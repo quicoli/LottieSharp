@@ -317,7 +317,7 @@ namespace LottieSharp
                 _taskCache.Remove(cacheKey);
             }
 
-            return task.Result;
+            return await task;
         }
     }
 }
