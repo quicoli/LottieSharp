@@ -1,12 +1,12 @@
 # LottieSharp
 
 
-| ![Logo](https://raw.githubusercontent.com/ascora/LottieSharp/master/Images/lottie_sharp-128.png) |C# (WPF) port of Lottie (https://github.com/airbnb/lottie-android) based on .NET Framework 4.6.1 using sharpdx (http://sharpdx.org/)  |
+| ![Logo](https://raw.githubusercontent.com/ascora/LottieSharp/master/Images/lottie_sharp-128.png) |C# (WPF) port of Lottie (https://github.com/airbnb/lottie-android) based on .NET using sharpdx (http://sharpdx.org/)  |
 |--|--|
 
 **Usage**
 
-```PM> Install-Package LottieSharp -Version 1.0.0```
+```PM> Install-Package LottieSharp -Version 1.1.3```
 
 - Install from nuget: [LottieSharp](https://www.nuget.org/packages/LottieSharp/);
 - Import into your xaml the library
