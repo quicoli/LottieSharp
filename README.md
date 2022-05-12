@@ -1,5 +1,7 @@
-# LottieSharp
+## Disclaimer ##
+This repository is no longer maintained. 
 
+# LottieSharp
 
 | ![Logo](https://raw.githubusercontent.com/ascora/LottieSharp/master/Images/lottie_sharp-128.png) |C# (WPF) port of Lottie (https://github.com/airbnb/lottie-android) based on .NET using sharpdx (http://sharpdx.org/)  |
 |--|--|
