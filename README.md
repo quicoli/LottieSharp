@@ -1,31 +1,12 @@
 ## Disclaimer ##
-This repository is no longer maintained. 
+Version 1.1.3 is archived in master branch and is no longer maintained. 
+All new implementations are done in develop branch.
 
 # LottieSharp
 
-| ![Logo](https://raw.githubusercontent.com/ascora/LottieSharp/master/Images/lottie_sharp-128.png) |C# (WPF) port of Lottie (https://github.com/airbnb/lottie-android) based on .NET using sharpdx (http://sharpdx.org/)  |
+| ![Logo](https://raw.githubusercontent.com/ascora/LottieSharp/master/Images/lottie_sharp-128.png) | Play [LottieFiles](https://lottiefiles.com/) in your WPF application  |
 |--|--|
 
-**Usage**
+**News**
 
-```PM> Install-Package LottieSharp -Version 1.1.3```
-
-- Install from nuget: [LottieSharp](https://www.nuget.org/packages/LottieSharp/);
-- Import into your xaml the library
-
-    xmlns:lottieSharp="clr-namespace:LottieSharp;assembly=LottieSharp"
-
-- Now you can include the control in your layout
-```xml
-<lottieSharp:LottieAnimationView 
-    x:Name="LottieAnimationView" 
-    DefaultCacheStrategy="None" 
-    FileName="Assets/Spider Loader.json" AutoPlay="True" 
-    VerticalAlignment="Center" 
-    HorizontalAlignment="Center"/>
-```
-The FileName property points to an After Effects animation file. You can write the filename in xaml like shown or bind to a property in your viewmodel.
-
-The AutoPlay property indicates if the animation starts when the usercontrol is loaded.
-
-There are many free animations at: [LottieFiles](https://www.lottiefiles.com/)
+Watch this repository, a new release is coming!
