@@ -1,0 +1,48 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <Platforms>AnyCPU;x64</Platforms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="lottie_sharp.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="lottie_sharp.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MaterialDesignColors" Version="2.0.6" />
+    <PackageReference Include="MaterialDesignThemes" Version="4.5.0" />
+    <PackageReference Include="Prism.Wpf" Version="8.1.97" />
+	<PackageReference Include="SkiaSharp.Skottie" Version="2.88.1" />
+	<PackageReference Include="SkiaSharp.Views.WPF" Version="2.88.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LottieSharp.WPF\LottieSharp.WPF.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Assets\activity.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\file-plus.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\LottieLogo.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\printer.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>
