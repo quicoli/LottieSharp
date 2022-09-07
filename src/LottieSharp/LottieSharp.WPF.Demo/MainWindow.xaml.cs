@@ -33,5 +33,15 @@ namespace LottieSharp.WPF.Demo
                 MenuToggleButton.IsChecked = false;
             }
         }
+
+        private void ButtonPlay_Click(object sender, RoutedEventArgs e)
+        {
+            lottieView.PlayAnimation();
+        }
+
+        private void ButtonStop_Click(object sender, RoutedEventArgs e)
+        {
+            lottieView.StopAnimation();
+        }
     }
 }
