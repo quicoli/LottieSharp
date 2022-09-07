@@ -18,9 +18,13 @@ namespace LottieSharp.WPF
         private DispatcherTimer timer;
         private int loopCount;
 
-        public AnimationInfo Info { get; private set; }
-        public event EventHandler OnStop;
+        public AnimationInfo Info
+        {
+            get { return (AnimationInfo)GetValue(InfoProperty); }
+            set { SetValue(InfoProperty, value); }
+        }
 
+        public event EventHandler OnStop;
 
         public string FileName
         {
@@ -39,7 +43,7 @@ namespace LottieSharp.WPF
         {
             loopCount = RepeatCount;
             timer.Stop();
-            watch.Stop();
+            watch.Reset();
             IsPlaying = false;
 
             OnStop?.Invoke(this, null);
@@ -70,6 +74,9 @@ namespace LottieSharp.WPF
 
         public static readonly DependencyProperty AutoStartProperty =
             DependencyProperty.Register("AutoPlay", typeof(bool), typeof(LottieAnimationView), new PropertyMetadata(false, AutoPlayPropertyChangedCallback));
+
+        public static readonly DependencyProperty InfoProperty =
+            DependencyProperty.Register("Info", typeof(AnimationInfo), typeof(LottieAnimationView));
 
         private static void AutoPlayPropertyChangedCallback(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
         {
