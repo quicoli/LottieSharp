@@ -17,11 +17,11 @@ PS.: Screen cast by: http://recordit.co/
 
 Add LottieSharp to your application:
 
-```PM> Install-Package LottieSharp -Version 2.0.0```
+```PM> Install-Package LottieSharp -Version 2.0.1```
 
 Reference LottieSharp in your XAML Window/Page/UserControl:
 
-```xmlns:lottie="clr-namespace:LottieSharp.WPF;assembly=LottieSharp.WPF"```
+```xmlns:lottie="clr-namespace:LottieSharp.WPF;assembly=LottieSharp"```
 
 Add a LottieAnimationView control. Set properties as you wish:
 ```
@@ -34,6 +34,10 @@ Add a LottieAnimationView control. Set properties as you wish:
     FileName="{Binding Path=SelectedAsset.FilePath}"
     RepeatCount="-1" />
 ```
+
+### Version 2.0.1
+Fixed issue #57.
+Fixed issue with animation details not being displayed in databinding.
 
 
 ### Properties, Methods and Events
