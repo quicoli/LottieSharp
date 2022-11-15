@@ -17,7 +17,7 @@ PS.: Screen cast by: http://recordit.co/
 
 Add LottieSharp to your application:
 
-```PM> Install-Package LottieSharp -Version 2.0.1```
+```PM> Install-Package LottieSharp -Version 2.1.0```
 
 Reference LottieSharp in your XAML Window/Page/UserControl:
 
@@ -35,6 +35,21 @@ Add a LottieAnimationView control. Set properties as you wish:
     RepeatCount="-1" />
 ```
 
+With `images/my-resource-animation.json` Resource in the application project file:
+```
+<lottie:LottieAnimationView
+    Width="200"
+    Height="300"
+    HorizontalAlignment="Center"
+    VerticalAlignment="Center"
+    AutoPlay="True"
+    ResourcePath="pack://application:,,,/images/my-resource-animation.json"
+    RepeatCount="-1" />
+```
+
+### Version 2.1.0
+Adds support for loading a Resource stream with a `pack://application` URI. Using both `FileName` and `ResourcePath` properties is ambigous.
+
 ### Version 2.0.1
 Fixed issue #57.
 Fixed issue with animation details not being displayed in databinding.
@@ -46,6 +61,7 @@ Fixed issue with animation details not being displayed in databinding.
 | --- | --- | --- |
 | AutoPlay    | True, False | When true, the animation file is automatically played and it is loaded |
 | FileName    | string      | Path to the Lottie file. This property can be used in databind (see demo app) |
+| ResourcePath| string      | Resource path to the Lottie file. This property can be used in databind (see demo app splash screen) |
 | RepeatCount | -1..N       | How many times the animation will repeat after once played. The default is 0, meaning it doesn't repeat. -1 means it repeats forever. |
 | IsPlaying   | True, False | Represents the current aninaation status. |
 

@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="images\resource-lottielogo.json" />
     <None Remove="lottie_sharp.ico" />
   </ItemGroup>
 
@@ -28,6 +29,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\LottieSharp.WPF\LottieSharp.WPF.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="images\resource-lottielogo.json" />
   </ItemGroup>
 
   <ItemGroup>
