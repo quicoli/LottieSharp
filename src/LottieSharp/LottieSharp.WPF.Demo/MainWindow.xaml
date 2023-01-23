@@ -174,7 +174,7 @@
                         Margin="0,20,0,0"
                         HorizontalAlignment="Center"
                         AutoPlay="True"
-                        FileName=".\Assets\LottieLogo.json"
+                        ResourcePath="pack://application:,,,/images/resource-lottielogo.json"
                         RepeatCount="0">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="OnStop">

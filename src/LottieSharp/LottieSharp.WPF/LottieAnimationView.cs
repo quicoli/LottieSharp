@@ -1,13 +1,13 @@
-﻿using SkiaSharp;
-using SkiaSharp.Skottie;
-using SkiaSharp.Views.Desktop;
-using SkiaSharp.Views.WPF;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Threading;
+using SkiaSharp;
+using SkiaSharp.Skottie;
+using SkiaSharp.Views.Desktop;
+using SkiaSharp.Views.WPF;
 
 namespace LottieSharp.WPF
 {
@@ -30,6 +30,12 @@ namespace LottieSharp.WPF
         {
             get => (string)GetValue(FileNameProperty);
             set => SetValue(FileNameProperty, value);
+        }
+
+        public string ResourcePath
+        {
+            get => (string)GetValue(ResourcePathProperty);
+            set => SetValue(ResourcePathProperty, value);
         }
 
         public virtual void PlayAnimation()
@@ -104,54 +110,31 @@ namespace LottieSharp.WPF
         public static readonly DependencyProperty FileNameProperty =
             DependencyProperty.Register("FileName", typeof(string), typeof(LottieAnimationView), new PropertyMetadata(null, FileNamePropertyChangedCallback));
 
+        public static readonly DependencyProperty ResourcePathProperty =
+            DependencyProperty.Register("ResourcePath", typeof(string), typeof(LottieAnimationView), new PropertyMetadata(null, ResourcePathPropertyChangedCallback));
+
         private static void FileNamePropertyChangedCallback(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
         {
-            if (dependencyObject is LottieAnimationView lottieAnimationView)
+            if (dependencyObject is LottieAnimationView lottieAnimationView && e.NewValue is string assetName)
             {
-                lottieAnimationView.SetAnimation((string)e.NewValue);
+                lottieAnimationView.SetAnimationFromFile(assetName);
             }
         }
 
-        private void SetAnimation(string assetName)
+        private static void ResourcePathPropertyChangedCallback(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
+        {
+            if (dependencyObject is LottieAnimationView lottieAnimationView && e.NewValue is string assetName)
+            {
+                lottieAnimationView.SetAnimationFromResource(assetName);
+            }
+        }
+
+        private void SetAnimationFromFile(string assetName)
         {
             try
             {
-                if (DesignerProperties.GetIsInDesignMode(this))
-                {
-                    return;
-                }
-
                 using FileStream stream = File.OpenRead(assetName);
-                using SKManagedStream fileStream = new(stream);
-
-                if (Animation.TryCreate(fileStream, out animation))
-                {
-                    animation.Seek(0);
-                    Info = new AnimationInfo(animation.Version, animation.Duration, animation.Fps, animation.InPoint, animation.OutPoint);
-                }
-                else
-                {
-                    Info = new AnimationInfo(string.Empty, TimeSpan.Zero, 0, 0, 0);
-                    throw new InvalidOperationException("Failed to load animation");
-                }
-
-                watch.Reset();
-                if (timer == null)
-                {
-                    timer = new DispatcherTimer(DispatcherPriority.Render);
-                    timer.Interval = TimeSpan.FromSeconds(Math.Max(1 / 60.0, 1 / animation.Fps));
-                    timer.Tick += (s, e) => { InvalidateVisual(); };
-                }
-                else
-                {
-                    timer.Stop();
-                    timer.Interval = TimeSpan.FromSeconds(Math.Max(1 / 60.0, 1 / animation.Fps));
-                }
-
-                if (AutoPlay || IsPlaying)
-                {
-                    PlayAnimation();
-                }
+                SetAnimation(stream);
             }
             catch (IOException)
             {
@@ -162,6 +145,75 @@ namespace LottieSharp.WPF
             {
                 Debug.WriteLine($"Unexpected error when loading {assetName}");
                 throw;
+            }
+        }
+
+        private void SetAnimationFromResource(string assetUri)
+        {
+            if (DesignerProperties.GetIsInDesignMode(this))
+            {
+                return;
+            }
+
+            try
+            {
+                var resourceUri = new Uri(assetUri);
+                var resourceInfo = Application.GetResourceStream(resourceUri);
+
+                SetAnimation(resourceInfo?.Stream);
+            }
+            catch (IOException)
+            {
+                Debug.WriteLine($"Failed to load resource {assetUri}");
+                throw;
+            }
+            catch (UriFormatException)
+            {
+                Debug.WriteLine($"Resource URI failure for resource {assetUri}");
+                throw;
+            }
+            catch (Exception)
+            {
+                Debug.WriteLine($"Unexpected error when loading resource {assetUri}");
+                throw;
+            }
+
+        }
+
+        private void SetAnimation(Stream stream)
+        {
+
+
+            using SKManagedStream fileStream = new(stream);
+
+            if (Animation.TryCreate(fileStream, out animation))
+            {
+                animation.Seek(0);
+                Info = new AnimationInfo(animation.Version, animation.Duration, animation.Fps, animation.InPoint,
+                    animation.OutPoint);
+            }
+            else
+            {
+                Info = new AnimationInfo(string.Empty, TimeSpan.Zero, 0, 0, 0);
+                throw new InvalidOperationException("Failed to load animation");
+            }
+
+            watch.Reset();
+            if (timer == null)
+            {
+                timer = new DispatcherTimer(DispatcherPriority.Render);
+                timer.Interval = TimeSpan.FromSeconds(Math.Max(1 / 60.0, 1 / animation.Fps));
+                timer.Tick += (s, e) => { InvalidateVisual(); };
+            }
+            else
+            {
+                timer.Stop();
+                timer.Interval = TimeSpan.FromSeconds(Math.Max(1 / 60.0, 1 / animation.Fps));
+            }
+
+            if (AutoPlay || IsPlaying)
+            {
+                PlayAnimation();
             }
         }
 
