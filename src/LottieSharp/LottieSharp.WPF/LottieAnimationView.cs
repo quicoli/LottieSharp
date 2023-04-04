@@ -1,13 +1,14 @@
-﻿using System;
+﻿using LottieSharp.WPF.Transforms;
+using SkiaSharp;
+using SkiaSharp.Skottie;
+using SkiaSharp.Views.Desktop;
+using SkiaSharp.Views.WPF;
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Threading;
-using SkiaSharp;
-using SkiaSharp.Skottie;
-using SkiaSharp.Views.Desktop;
-using SkiaSharp.Views.WPF;
 
 namespace LottieSharp.WPF
 {
@@ -71,6 +72,17 @@ namespace LottieSharp.WPF
                 lottieAnimationView.loopCount = (int)e.NewValue;
             }
         }
+
+        public AnimationTransformBase AnimationScale
+        {
+            get { return (AnimationTransformBase)GetValue(AnimationScaleProperty); }
+            set { SetValue(AnimationScaleProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for AnimationScale.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty AnimationScaleProperty =
+            DependencyProperty.Register("AnimationScale", typeof(AnimationTransformBase), typeof(LottieAnimationView), new PropertyMetadata(default(AnimationTransformBase)));
+
 
         public bool AutoPlay
         {
@@ -157,8 +169,8 @@ namespace LottieSharp.WPF
 
             try
             {
-                var resourceUri = new Uri(assetUri);
-                var resourceInfo = Application.GetResourceStream(resourceUri);
+                Uri resourceUri = new Uri(assetUri);
+                System.Windows.Resources.StreamResourceInfo resourceInfo = Application.GetResourceStream(resourceUri);
 
                 SetAnimation(resourceInfo?.Stream);
             }
@@ -182,8 +194,6 @@ namespace LottieSharp.WPF
 
         private void SetAnimation(Stream stream)
         {
-
-
             using SKManagedStream fileStream = new(stream);
 
             if (Animation.TryCreate(fileStream, out animation))
@@ -249,6 +259,10 @@ namespace LottieSharp.WPF
                     }
                 }
 
+                if (AnimationScale is CenterTransform)
+                {
+                    canvas.Scale(AnimationScale.ScaleX, AnimationScale.ScaleY, info.Width / 2, info.Height / 2);
+                }
                 animation.Render(canvas, new SKRect(0, 0, info.Width, info.Height));
             }
         }
