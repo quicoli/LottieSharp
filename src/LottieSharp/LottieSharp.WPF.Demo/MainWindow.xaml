@@ -8,6 +8,7 @@
     xmlns:lottie="clr-namespace:LottieSharp.WPF;assembly=LottieSharp"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:transforms="clr-namespace:LottieSharp.WPF.Transforms;assembly=LottieSharp"
     Title="LottieSharp.WPF Demo"
     Width="800"
     Height="600"
@@ -98,7 +99,11 @@
                                     VerticalAlignment="Center"
                                     AutoPlay="False"
                                     FileName="{Binding Path=SelectedAsset.FilePath}"
-                                    RepeatCount="0" />
+                                    RepeatCount="0">
+                                    <lottie:LottieAnimationView.AnimationScale>
+                                        <transforms:CenterTransform ScaleX="1.5" ScaleY="1.5" />
+                                    </lottie:LottieAnimationView.AnimationScale>
+                                </lottie:LottieAnimationView>
                             </ScrollViewer>
                             <materialDesign:Card
                                 Grid.Row="1"
@@ -120,14 +125,14 @@
                                             x:Name="ButtonPlay"
                                             Margin="4"
                                             Click="ButtonPlay_Click"
-                                            IsEnabled="{Binding ElementName=lottieView, Path=IsPlaying, Converter={StaticResource NotConverter}}"
-                                            Content="PLAY" />
+                                            Content="PLAY"
+                                            IsEnabled="{Binding ElementName=lottieView, Path=IsPlaying, Converter={StaticResource NotConverter}}" />
                                         <Button
                                             x:Name="ButtonStop"
                                             Margin="4"
                                             Click="ButtonStop_Click"
-                                            IsEnabled="{Binding ElementName=lottieView, Path=IsPlaying}"
-                                            Content="STOP" />
+                                            Content="STOP"
+                                            IsEnabled="{Binding ElementName=lottieView, Path=IsPlaying}" />
                                     </StackPanel>
                                     <StackPanel
                                         Grid.Row="1"
@@ -174,8 +179,8 @@
                         Margin="0,20,0,0"
                         HorizontalAlignment="Center"
                         AutoPlay="True"
-                        ResourcePath="pack://application:,,,/images/resource-lottielogo.json"
-                        RepeatCount="0">
+                        RepeatCount="0"
+                        ResourcePath="pack://application:,,,/images/resource-lottielogo.json">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="OnStop">
                                 <i:InvokeCommandAction Command="{Binding CloseSplashScreenCommand}" />
