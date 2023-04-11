@@ -64,103 +64,154 @@
                         </Grid>
                     </materialDesign:ColorZone>
 
-                    <Grid Grid.Row="1" Background="Transparent">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
+                    <TabControl Grid.Row="1">
 
-                        <materialDesign:Card
-                            Grid.Column="0"
-                            Width="250"
-                            Margin="8"
-                            Padding="8"
-                            HorizontalAlignment="Left">
-                            <ListBox ItemsSource="{Binding Assets}" SelectedItem="{Binding SelectedAsset, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                                <ListBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Filename}" />
-                                    </DataTemplate>
-                                </ListBox.ItemTemplate>
-                            </ListBox>
-                        </materialDesign:Card>
+                        <TabItem Header="Main">
+                            <Grid Grid.Row="1" Background="Transparent">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
 
-                        <Grid Grid.Column="1">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="150" />
-                            </Grid.RowDefinitions>
-                            <ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                                <lottie:LottieAnimationView
-                                    x:Name="lottieView"
-                                    Width="200"
-                                    Height="300"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    AutoPlay="False"
-                                    FileName="{Binding Path=SelectedAsset.FilePath}"
-                                    RepeatCount="0">
-                                    <lottie:LottieAnimationView.AnimationScale>
-                                        <transforms:CenterTransform ScaleX="1.5" ScaleY="1.5" />
-                                    </lottie:LottieAnimationView.AnimationScale>
-                                </lottie:LottieAnimationView>
-                            </ScrollViewer>
-                            <materialDesign:Card
-                                Grid.Row="1"
-                                Margin="8"
-                                Padding="8"
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Stretch">
-                                <Grid>
+                                <materialDesign:Card
+                                    Grid.Column="0"
+                                    Width="250"
+                                    Margin="8"
+                                    Padding="8"
+                                    HorizontalAlignment="Left">
+                                    <ListBox ItemsSource="{Binding Assets}" SelectedItem="{Binding SelectedAsset, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                        <ListBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Filename}" />
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
+                                </materialDesign:Card>
+
+                                <Grid Grid.Column="1">
                                     <Grid.RowDefinitions>
-                                        <RowDefinition />
-                                        <RowDefinition />
-                                        <RowDefinition />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="150" />
                                     </Grid.RowDefinitions>
-                                    <StackPanel
-                                        Grid.Row="0"
-                                        HorizontalAlignment="Center"
-                                        Orientation="Horizontal">
-                                        <Button
-                                            x:Name="ButtonPlay"
-                                            Margin="4"
-                                            Click="ButtonPlay_Click"
-                                            Content="PLAY"
-                                            IsEnabled="{Binding ElementName=lottieView, Path=IsPlaying, Converter={StaticResource NotConverter}}" />
-                                        <Button
-                                            x:Name="ButtonStop"
-                                            Margin="4"
-                                            Click="ButtonStop_Click"
-                                            Content="STOP"
-                                            IsEnabled="{Binding ElementName=lottieView, Path=IsPlaying}" />
-                                    </StackPanel>
-                                    <StackPanel
+                                    <ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                        <lottie:LottieAnimationView
+                                            x:Name="lottieView"
+                                            Width="200"
+                                            Height="300"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            AutoPlay="False"
+                                            FileName="{Binding Path=SelectedAsset.FilePath}"
+                                            RepeatCount="0">
+                                        </lottie:LottieAnimationView>
+                                    </ScrollViewer>
+                                    <materialDesign:Card
                                         Grid.Row="1"
-                                        HorizontalAlignment="Center"
-                                        Orientation="Horizontal">
-                                        <TextBlock Text="FPS" />
-                                        <TextBlock Margin="4,0" Text="{Binding ElementName=lottieView, Path=Info.Fps}" />
-                                        <TextBlock Text="Duration" />
-                                        <TextBlock Margin="4,0" Text="{Binding ElementName=lottieView, Path=Info.Duration}" />
-                                    </StackPanel>
-                                    <StackPanel
-                                        Grid.Row="2"
-                                        HorizontalAlignment="Center"
-                                        Orientation="Horizontal">
-                                        <TextBlock Text="Version" />
-                                        <TextBlock Margin="4,0" Text="{Binding ElementName=lottieView, Path=Info.Version}" />
-                                    </StackPanel>
+                                        Margin="8"
+                                        Padding="8"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                                <RowDefinition />
+                                            </Grid.RowDefinitions>
+                                            <StackPanel
+                                                Grid.Row="0"
+                                                HorizontalAlignment="Center"
+                                                Orientation="Horizontal">
+                                                <Button
+                                                    x:Name="ButtonPlay"
+                                                    Margin="4"
+                                                    Click="ButtonPlay_Click"
+                                                    Content="PLAY"
+                                                    IsEnabled="{Binding ElementName=lottieView, Path=IsPlaying, Converter={StaticResource NotConverter}}" />
+                                                <Button
+                                                    x:Name="ButtonStop"
+                                                    Margin="4"
+                                                    Click="ButtonStop_Click"
+                                                    Content="STOP"
+                                                    IsEnabled="{Binding ElementName=lottieView, Path=IsPlaying}" />
+                                            </StackPanel>
+                                            <StackPanel
+                                                Grid.Row="1"
+                                                HorizontalAlignment="Center"
+                                                Orientation="Horizontal">
+                                                <TextBlock Text="FPS" />
+                                                <TextBlock Margin="4,0" Text="{Binding ElementName=lottieView, Path=Info.Fps}" />
+                                                <TextBlock Text="Duration" />
+                                                <TextBlock Margin="4,0" Text="{Binding ElementName=lottieView, Path=Info.Duration}" />
+                                            </StackPanel>
+                                            <StackPanel
+                                                Grid.Row="2"
+                                                HorizontalAlignment="Center"
+                                                Orientation="Horizontal">
+                                                <TextBlock Text="Version" />
+                                                <TextBlock Margin="4,0" Text="{Binding ElementName=lottieView, Path=Info.Version}" />
+                                            </StackPanel>
+                                        </Grid>
+
+                                    </materialDesign:Card>
+
+
                                 </Grid>
 
-                            </materialDesign:Card>
+                            </Grid>
+                        </TabItem>
 
+                        <TabItem Header="Scale">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
 
-                        </Grid>
+                                <Border BorderBrush="Black" 
+                                        Margin="8"
+                                        BorderThickness="2">
+                                    <lottie:LottieAnimationView
+                                        x:Name="lottieView2"
+                                        Width="100"
+                                        Height="200"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        AutoPlay="True"
+                                        FileName="LottieLogo.json"
+                                        RepeatCount="3">
+                                        <lottie:LottieAnimationView.AnimationScale>
+                                            <transforms:CenterTransform ScaleX="1.5" ScaleY="1.5" />
+                                        </lottie:LottieAnimationView.AnimationScale>
+                                    </lottie:LottieAnimationView>
+                                </Border>
 
-                    </Grid>
-
-
-
+                                <Border
+                                    Grid.Column="1"
+                                    Margin="8"
+                                    BorderBrush="Black"
+                                    BorderThickness="2">
+                                    <lottie:LottieAnimationView
+                                        x:Name="lottieView3"
+                                        Width="100"
+                                        Height="200"
+                                        
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        AutoPlay="True"
+                                        FileName="LottieLogo.json"
+                                        RepeatCount="3">
+                                        <lottie:LottieAnimationView.AnimationScale>
+                                            <transforms:AnimationTransformBase
+                                                CenterX="0"
+                                                CenterY="1"
+                                                ScaleX="2"
+                                                ScaleY="2" />
+                                        </lottie:LottieAnimationView.AnimationScale>
+                                    </lottie:LottieAnimationView>
+                                </Border>
+                            </Grid>
+                        </TabItem>
+                    </TabControl>
                 </Grid>
             </materialDesign:DrawerHost>
         </materialDesign:DialogHost>
