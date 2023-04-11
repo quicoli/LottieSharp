@@ -263,6 +263,11 @@ namespace LottieSharp.WPF
                 {
                     canvas.Scale(AnimationScale.ScaleX, AnimationScale.ScaleY, info.Width / 2, info.Height / 2);
                 }
+                else if (AnimationScale != null)
+                {
+                    canvas.Scale(AnimationScale.ScaleX, AnimationScale.ScaleY, AnimationScale.CenterX, AnimationScale.CenterY);
+                }
+
                 animation.Render(canvas, new SKRect(0, 0, info.Width, info.Height));
             }
         }
