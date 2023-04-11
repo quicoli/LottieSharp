@@ -17,7 +17,7 @@ PS.: Screen cast by: http://recordit.co/
 
 Add LottieSharp to your application:
 
-```PM> Install-Package LottieSharp -Version 2.1.0```
+```PM> Install-Package LottieSharp -Version 2.2.0```
 
 Reference LottieSharp in your XAML Window/Page/UserControl:
 
@@ -47,6 +47,52 @@ With `images/my-resource-animation.json` Resource in the application project fil
     RepeatCount="-1" />
 ```
 
+When a lottie animation is small and you need it bigger, there's no need to edit the lottie file.
+Now we apply a scale to it.
+```
+<lottie:LottieAnimationView
+    Width="200"
+    Height="300"
+    HorizontalAlignment="Center"
+    VerticalAlignment="Center"
+    AutoPlay="True"
+    ResourcePath="pack://application:,,,/images/my-resource-animation.json"
+    RepeatCount="-1">
+    <lottie:LottieAnimationView.AnimationScale>
+          <transforms:CenterTransform ScaleX="1.5" ScaleY="1.5" />
+    </lottie:LottieAnimationView.AnimationScale>
+</lottie:LottieAnimationView>
+```
+
+CenterTransform scales the animation within its center automatically.
+If you need a different position use the AnimationTransformBase.
+```
+<lottie:LottieAnimationView
+    Width="200"
+    Height="300"
+    HorizontalAlignment="Center"
+    VerticalAlignment="Center"
+    AutoPlay="True"
+    ResourcePath="pack://application:,,,/images/my-resource-animation.json"
+    RepeatCount="-1">
+    <lottie:LottieAnimationView.AnimationScale>
+          <transforms:AnimationTransformBase
+               CenterX="0"
+               CenterY="1"
+               ScaleX="2"
+               ScaleY="2" />
+    </lottie:LottieAnimationView.AnimationScale>
+</lottie:LottieAnimationView>
+```
+
+
+
+
+### Version 2.2.0
+Adds support for scaling the animation.
+Adds support to AnyCPU.
+Updated to latest SkiaSharp references.
+
 ### Version 2.1.0
 Adds support for loading a Resource stream with a `pack://application` URI. Using both `FileName` and `ResourcePath` properties is ambigous.
 
@@ -57,13 +103,14 @@ Fixed issue with animation details not being displayed in databinding.
 
 ### Properties, Methods and Events
 
-| Properties  | Values      | Description |
+| Properties     | Values                | Description |
 | --- | --- | --- |
-| AutoPlay    | True, False | When true, the animation file is automatically played and it is loaded |
-| FileName    | string      | Path to the Lottie file. This property can be used in databind (see demo app) |
-| ResourcePath| string      | Resource path to the Lottie file. This property can be used in databind (see demo app splash screen) |
-| RepeatCount | -1..N       | How many times the animation will repeat after once played. The default is 0, meaning it doesn't repeat. -1 means it repeats forever. |
-| IsPlaying   | True, False | Represents the current aninaation status. |
+| AutoPlay       | True, False           | When true, the animation file is automatically played and it is loaded |
+| FileName       | string                | Path to the Lottie file. This property can be used in databind (see demo app) |
+| ResourcePath   | string                | Resource path to the Lottie file. This property can be used in databind (see demo app splash screen) |
+| RepeatCount    | -1..N                 | How many times the animation will repeat after once played. The default is 0, meaning it doesn't repeat. -1 means it repeats forever. |
+| IsPlaying      | True, False           | Represents the current aninaation status. |
+| AnimationScale |AnimationTransformBase | Applies a custom scale to the loaded lottie animation. See CenterTransform above |
 
 
 | Events | Description |
