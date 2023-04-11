@@ -3,7 +3,7 @@ using System.Windows.Controls;
 
 namespace LottieSharp.WPF.Transforms
 {
-    public abstract class AnimationTransformBase : Control
+    public class AnimationTransformBase : Control
     {
         public float ScaleX
         {
@@ -24,5 +24,26 @@ namespace LottieSharp.WPF.Transforms
         // Using a DependencyProperty as the backing store for ScaleY.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty ScaleYProperty =
             DependencyProperty.Register("ScaleY", typeof(float), typeof(AnimationTransformBase), new PropertyMetadata(0.0f));
+
+        public float CenterX
+        {
+            get { return (float)GetValue(CenterXProperty); }
+            set { SetValue(CenterXProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for CenterX.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CenterXProperty =
+            DependencyProperty.Register("CenterX", typeof(float), typeof(AnimationTransformBase), new PropertyMetadata(0.0f));
+
+        public float CenterY
+        {
+            get { return (float)GetValue(CenterYProperty); }
+            set { SetValue(CenterYProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for CenterY.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CenterYProperty =
+            DependencyProperty.Register("CenterY", typeof(float), typeof(AnimationTransformBase), new PropertyMetadata(0.0f));
+
     }
 }
