@@ -9,8 +9,8 @@
 	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>lottie_sharp_rect-128.png</PackageIcon>
     <RepositoryUrl>https://github.com/quicoli/LottieSharp</RepositoryUrl>
-	  <Version>2.1.0</Version>
-	  <Platforms>AnyCPU;x64</Platforms>
+	  <Version>2.2.0</Version>
+	  <Platforms>AnyCPU</Platforms>
 	  <AssemblyName>LottieSharp</AssemblyName>
 	  <PackageReadmeFile>readme.md</PackageReadmeFile>
 	  <PackageTags>wpf;lottie;animation;c-sharp</PackageTags>
@@ -37,8 +37,8 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
-    <PackageReference Include="SkiaSharp.Skottie" Version="2.88.1" />
-    <PackageReference Include="SkiaSharp.Views.WPF" Version="2.88.1" />
+    <PackageReference Include="SkiaSharp.Skottie" Version="2.88.3" />
+    <PackageReference Include="SkiaSharp.Views.WPF" Version="2.88.3" />
   </ItemGroup>
 
 </Project>
