@@ -1,12 +1,13 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFrameworks>net6.0-windows;net47</TargetFrameworks>
+	<LangVersion>Latest</LangVersion>
     <Nullable>disable</Nullable>
     <UseWPF>true</UseWPF>
     <ApplicationIcon>lottie_sharp.ico</ApplicationIcon>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
+	<PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>lottie_sharp_rect-128.png</PackageIcon>
     <RepositoryUrl>https://github.com/quicoli/LottieSharp</RepositoryUrl>
 	  <Version>2.2.0</Version>
@@ -15,8 +16,8 @@
 	  <PackageReadmeFile>readme.md</PackageReadmeFile>
 	  <PackageTags>wpf;lottie;animation;c-sharp</PackageTags>
 	  <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-	<SignAssembly>True</SignAssembly>
-	<AssemblyOriginatorKeyFile>..\LottieSharp.snk</AssemblyOriginatorKeyFile>
+	  <SignAssembly>True</SignAssembly>
+	  <AssemblyOriginatorKeyFile>..\LottieSharp.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 	
 
