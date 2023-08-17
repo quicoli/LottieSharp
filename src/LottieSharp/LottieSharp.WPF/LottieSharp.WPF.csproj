@@ -10,7 +10,7 @@
 	<PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageIcon>lottie_sharp_rect-128.png</PackageIcon>
     <RepositoryUrl>https://github.com/quicoli/LottieSharp</RepositoryUrl>
-	  <Version>2.2.0</Version>
+	  <Version>2.3.0</Version>
 	  <Platforms>AnyCPU</Platforms>
 	  <AssemblyName>LottieSharp</AssemblyName>
 	  <PackageReadmeFile>readme.md</PackageReadmeFile>
