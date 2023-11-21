@@ -27,6 +27,12 @@ namespace LottieSharp.WPF
 
         public event EventHandler OnStop;
 
+        public Stream SourceStream
+        {
+            get => (Stream)GetValue(SourceStreamProperty);
+            set => SetValue(SourceStreamProperty, value);
+        }
+
         public string FileName
         {
             get => (string)GetValue(FileNameProperty);
@@ -119,11 +125,22 @@ namespace LottieSharp.WPF
         public static readonly DependencyProperty RepeatProperty =
             DependencyProperty.Register("Repeat", typeof(RepeatMode), typeof(LottieAnimationView), new PropertyMetadata(RepeatMode.Restart));
 
+        public static readonly DependencyProperty SourceStreamProperty =
+            DependencyProperty.Register("SourceStream", typeof(Stream), typeof(LottieAnimationView), new PropertyMetadata(null, SourceStreamPropertyChangedCallback));
+
         public static readonly DependencyProperty FileNameProperty =
             DependencyProperty.Register("FileName", typeof(string), typeof(LottieAnimationView), new PropertyMetadata(null, FileNamePropertyChangedCallback));
 
         public static readonly DependencyProperty ResourcePathProperty =
             DependencyProperty.Register("ResourcePath", typeof(string), typeof(LottieAnimationView), new PropertyMetadata(null, ResourcePathPropertyChangedCallback));
+
+        private static void SourceStreamPropertyChangedCallback(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
+        {
+            if (dependencyObject is LottieAnimationView lottieAnimationView && e.NewValue is Stream stream)
+            {
+                lottieAnimationView.SetAnimationFromStream(stream);
+            }
+        }
 
         private static void FileNamePropertyChangedCallback(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs e)
         {
@@ -138,6 +155,19 @@ namespace LottieSharp.WPF
             if (dependencyObject is LottieAnimationView lottieAnimationView && e.NewValue is string assetName)
             {
                 lottieAnimationView.SetAnimationFromResource(assetName);
+            }
+        }
+
+        private void SetAnimationFromStream(Stream stream)
+        {
+            try
+            {
+                SetAnimation(stream);
+            }
+            catch (Exception)
+            {
+                Debug.WriteLine($"Unexpected error when loading {stream}");
+                throw;
             }
         }
 
