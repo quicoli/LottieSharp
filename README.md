@@ -87,6 +87,7 @@ If you need a different position use the AnimationTransformBase.
 
 ### Version 2.4.2
 (High cpu usage when control is invisible or not enabled)Play/Stop animation when control isn't visible or enable.
+Updated Skiasharp
 
 ### Version 2.4.0
 Adds support to .NET 8.
