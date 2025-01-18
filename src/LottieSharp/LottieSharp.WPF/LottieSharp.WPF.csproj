@@ -18,9 +18,9 @@
 	  <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 	  <SignAssembly>True</SignAssembly>
 	  <AssemblyOriginatorKeyFile>..\LottieSharp.snk</AssemblyOriginatorKeyFile>
-	  <PackageId>sSm.$(AssemblyName)</PackageId>
-	  <Title>sSm.$(AssemblyName)</Title>
-	  <Authors>sSm</Authors>
+	  <PackageId>$(AssemblyName)</PackageId>
+	  <Title>$(AssemblyName)</Title>
+	  <Authors>Quicoli</Authors>
   </PropertyGroup>
 	
 
