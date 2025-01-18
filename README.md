@@ -3,7 +3,7 @@
 | ![Logo](https://raw.githubusercontent.com/ascora/LottieSharp/master/Images/lottie_sharp-128.png) | Play [LottieFiles](https://lottiefiles.com/) in your WPF application  |
 |--|--|
 
-LottieSharp is built for WPF applications only. It targets .NET 8, .NET 6 and .NET Framework 4.7  and is built using [SkiaSharp](https://github.com/mono/SkiaSharp) and [Skottie](https://skia.org/docs/user/modules/skottie/).
+LottieSharp is built for WPF applications only. It targets .NET 8 and .NET Framework 4.7  and is built using [SkiaSharp](https://github.com/mono/SkiaSharp) and [Skottie](https://skia.org/docs/user/modules/skottie/).
 
 ### What can I do with LottieSharp?
 You can load [lottie animations](https://lottiefiles.com/) and play them in your applications, creating beautiful UIs.
@@ -17,7 +17,7 @@ PS.: Screen cast by: http://recordit.co/
 
 Add LottieSharp to your application:
 
-```PM> Install-Package sSm.LottieSharp -Version 2.4.2```
+```PM> Install-Package LottieSharp -Version 2.4.2```
 
 Reference LottieSharp in your XAML Window/Page/UserControl:
 
