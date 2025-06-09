@@ -12,18 +12,36 @@ using System.Windows.Threading;
 
 namespace LottieSharp.WPF
 {
-    public class LottieAnimationView : SKElement
+    /// <summary>
+    /// A WPF control for displaying and controlling Lottie (JSON-based) animations using SkiaSharp.
+    /// </summary>
+    /// <example>
+    /// Example usage in XAML:
+    /// <code>
+    /// <lottie:LottieAnimationView FileName="Assets/animation.json" AutoPlay="True" RepeatCount="-1" />
+    /// </code>
+    /// </example>
+    public class LottieAnimationView : SKElement, IDisposable
     {
         private readonly Stopwatch? watch = new();
         private Animation animation;
         private DispatcherTimer? timer;
         private int loopCount;
+        System.Windows.Resources.StreamResourceInfo? resourceInfo;
+        private bool disposedValue;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LottieAnimationView"/> class.
+        /// </summary>
         public LottieAnimationView()
         {
 
-        }
+        }        
 
+        /// <summary>
+        /// Handles property changes to update animation playback based on visibility and enabled state.
+        /// </summary>
+        /// <param name="e">The event data.</param>
         protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
         {
             base.OnPropertyChanged(e);
@@ -44,31 +62,65 @@ namespace LottieSharp.WPF
             
         }
 
+        /// <summary>
+        /// Checks if the control is visible and enabled.
+        /// </summary>
+        /// <returns>True if visible and enabled; otherwise, false.</returns>
         private bool EnsureVisibleAndEnabled()
         {
             return Visibility == Visibility.Visible && IsEnabled && IsVisible;
         }
 
+        /// <summary>
+        /// Gets or sets information about the loaded animation (version, duration, fps, etc).
+        /// </summary>
         public AnimationInfo Info
         {
             get { return (AnimationInfo)GetValue(InfoProperty); }
             set { SetValue(InfoProperty, value); }
         }
 
+        /// <summary>
+        /// Occurs when the animation is stopped.
+        /// </summary>
         public event EventHandler OnStop;
 
+        /// <summary>
+        /// Gets or sets the file path to the Lottie JSON animation.
+        /// </summary>
+        /// <example>
+        /// <code>
+        /// lottieView.FileName = "Assets/animation.json";
+        /// </code>
+        /// </example>
         public string FileName
         {
             get => (string)GetValue(FileNameProperty);
             set => SetValue(FileNameProperty, value);
         }
 
+        /// <summary>
+        /// Gets or sets the resource URI to the Lottie JSON animation (for embedded resources).
+        /// </summary>
+        /// <example>
+        /// <code>
+        /// lottieView.ResourcePath = "pack://application:,,,/YourAssembly;component/Assets/animation.json";
+        /// </code>
+        /// </example>
         public string ResourcePath
         {
             get => (string)GetValue(ResourcePathProperty);
             set => SetValue(ResourcePathProperty, value);
         }
 
+        /// <summary>
+        /// Starts or resumes the animation playback.
+        /// </summary>
+        /// <example>
+        /// <code>
+        /// lottieView.PlayAnimation();
+        /// </code>
+        /// </example>
         public virtual void PlayAnimation()
         {
             if (EnsureVisibleAndEnabled())
@@ -85,6 +137,14 @@ namespace LottieSharp.WPF
             }
         }
 
+        /// <summary>
+        /// Stops the animation playback and resets the timer.
+        /// </summary>
+        /// <example>
+        /// <code>
+        /// lottieView.StopAnimation();
+        /// </code>
+        /// </example>
         public virtual void StopAnimation()
         {
             loopCount = RepeatCount;
@@ -95,12 +155,23 @@ namespace LottieSharp.WPF
             OnStop?.Invoke(this, null);
         }
 
+        /// <summary>
+        /// Gets or sets the number of times the animation should repeat. Use -1 for infinite.
+        /// </summary>
+        /// <example>
+        /// <code>
+        /// lottieView.RepeatCount = -1; // Infinite loop
+        /// </code>
+        /// </example>
         public int RepeatCount
         {
             get { return (int)GetValue(RepeatCountProperty); }
             set { SetValue(RepeatCountProperty, value); }
         }
 
+        /// <summary>
+        /// Identifies the RepeatCount dependency property.
+        /// </summary>
         public static readonly DependencyProperty RepeatCountProperty =
             DependencyProperty.Register("RepeatCount", typeof(int), typeof(LottieAnimationView), new PropertyMetadata(0, RepeatCountChangedCallback));
 
@@ -112,26 +183,49 @@ namespace LottieSharp.WPF
             }
         }
 
+        /// <summary>
+        /// Gets or sets the transform used to scale or center the animation.
+        /// </summary>
+        /// <example>
+        /// <code>
+        /// lottieView.AnimationScale = new CenterTransform { ScaleX = 2, ScaleY = 2 };
+        /// </code>
+        /// </example>
         public AnimationTransformBase AnimationScale
         {
             get { return (AnimationTransformBase)GetValue(AnimationScaleProperty); }
             set { SetValue(AnimationScaleProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for AnimationScale.  This enables animation, styling, binding, etc...
+        /// <summary>
+        /// Identifies the AnimationScale dependency property.
+        /// </summary>
         public static readonly DependencyProperty AnimationScaleProperty =
             DependencyProperty.Register("AnimationScale", typeof(AnimationTransformBase), typeof(LottieAnimationView), new PropertyMetadata(default(AnimationTransformBase)));
 
-
+        /// <summary>
+        /// Gets or sets whether the animation should start playing automatically when loaded.
+        /// </summary>
+        /// <example>
+        /// <code>
+        /// lottieView.AutoPlay = true;
+        /// </code>
+        /// </example>
         public bool AutoPlay
         {
             get { return (bool)GetValue(AutoStartProperty); }
             set { SetValue(AutoStartProperty, value); }
         }
 
+        /// <summary>
+        /// Identifies the AutoPlay dependency property.
+        /// </summary>
         public static readonly DependencyProperty AutoStartProperty =
             DependencyProperty.Register("AutoPlay", typeof(bool), typeof(LottieAnimationView), new PropertyMetadata(false, AutoPlayPropertyChangedCallback));
 
+        /// <summary>
+        /// Identifies the Info dependency property.
+        /// </summary>
         public static readonly DependencyProperty InfoProperty =
             DependencyProperty.Register("Info", typeof(AnimationInfo), typeof(LottieAnimationView));
 
@@ -140,27 +234,50 @@ namespace LottieSharp.WPF
             // Not in use at the moment
         }
 
+        /// <summary>
+        /// Gets or sets whether the animation is currently playing.
+        /// </summary>
         public bool IsPlaying
         {
             get { return (bool)GetValue(IsPlayingProperty); }
             set { SetValue(IsPlayingProperty, value); }
         }
 
+        /// <summary>
+        /// Identifies the IsPlaying dependency property.
+        /// </summary>
         public static readonly DependencyProperty IsPlayingProperty =
             DependencyProperty.Register("IsPlaying", typeof(bool), typeof(LottieAnimationView), new PropertyMetadata(false));
 
+        /// <summary>
+        /// Gets or sets the repeat mode for the animation (Restart or Reverse).
+        /// </summary>
+        /// <example>
+        /// <code>
+        /// lottieView.Repeat = RepeatMode.Restart;
+        /// </code>
+        /// </example>
         public RepeatMode Repeat
         {
             get { return (RepeatMode)GetValue(RepeatProperty); }
             set { SetValue(RepeatProperty, value); }
         }
 
+        /// <summary>
+        /// Identifies the Repeat dependency property.
+        /// </summary>
         public static readonly DependencyProperty RepeatProperty =
             DependencyProperty.Register("Repeat", typeof(RepeatMode), typeof(LottieAnimationView), new PropertyMetadata(RepeatMode.Restart));
 
+        /// <summary>
+        /// Identifies the FileName dependency property.
+        /// </summary>
         public static readonly DependencyProperty FileNameProperty =
             DependencyProperty.Register("FileName", typeof(string), typeof(LottieAnimationView), new PropertyMetadata(null, FileNamePropertyChangedCallback));
 
+        /// <summary>
+        /// Identifies the ResourcePath dependency property.
+        /// </summary>
         public static readonly DependencyProperty ResourcePathProperty =
             DependencyProperty.Register("ResourcePath", typeof(string), typeof(LottieAnimationView), new PropertyMetadata(null, ResourcePathPropertyChangedCallback));
 
@@ -180,6 +297,10 @@ namespace LottieSharp.WPF
             }
         }
 
+        /// <summary>
+        /// Loads a Lottie animation from a file path.
+        /// </summary>
+        /// <param name="assetName">The file path to the animation JSON.</param>
         private void SetAnimationFromFile(string assetName)
         {
             try
@@ -199,6 +320,10 @@ namespace LottieSharp.WPF
             }
         }
 
+        /// <summary>
+        /// Loads a Lottie animation from a resource URI.
+        /// </summary>
+        /// <param name="assetUri">The resource URI to the animation JSON.</param>
         private void SetAnimationFromResource(string assetUri)
         {
             if (DesignerProperties.GetIsInDesignMode(this))
@@ -209,7 +334,7 @@ namespace LottieSharp.WPF
             try
             {
                 Uri resourceUri = new Uri(assetUri);
-                System.Windows.Resources.StreamResourceInfo resourceInfo = Application.GetResourceStream(resourceUri);
+                resourceInfo = Application.GetResourceStream(resourceUri);
 
                 SetAnimation(resourceInfo?.Stream);
             }
@@ -231,6 +356,10 @@ namespace LottieSharp.WPF
 
         }
 
+        /// <summary>
+        /// Loads and prepares the animation from a stream.
+        /// </summary>
+        /// <param name="stream">The stream containing the animation JSON.</param>
         private void SetAnimation(Stream stream)
         {
             using SKManagedStream fileStream = new(stream);
@@ -266,6 +395,10 @@ namespace LottieSharp.WPF
             }
         }
 
+        /// <summary>
+        /// Renders the animation on the control's surface.
+        /// </summary>
+        /// <param name="e">The paint surface event arguments.</param>
         protected override void OnPaintSurface(SKPaintSurfaceEventArgs e)
         {
             base.OnPaintSurface(e);
@@ -312,6 +445,46 @@ namespace LottieSharp.WPF
 
                 animation.Render(canvas, new SKRect(0, 0, info.Width, info.Height));
             }
+        }
+
+        /// <summary>
+        /// Releases the resources used by the control.
+        /// </summary>
+        /// <param name="disposing">True to release managed resources; false otherwise.</param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    resourceInfo?.Stream?.Dispose();
+                }
+
+                timer?.Stop();
+                timer = null;
+                watch?.Stop();
+                resourceInfo = null;
+                disposedValue = true;
+            }
+        }
+
+        /// <summary>
+        /// Finalizer for the LottieAnimationView.
+        /// </summary>
+        ~LottieAnimationView()
+        {
+            // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+            Dispose(disposing: false);
+        }
+
+        /// <summary>
+        /// Disposes the control and releases resources.
+        /// </summary>
+        public void Dispose()
+        {
+            // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
     }
 }
