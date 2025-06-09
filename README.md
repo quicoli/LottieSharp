@@ -17,7 +17,7 @@ PS.: Screen cast by: http://recordit.co/
 
 Add LottieSharp to your application:
 
-```PM> Install-Package LottieSharp -Version 2.4.2```
+```PM> Install-Package LottieSharp -Version 2.4.3```
 
 Reference LottieSharp in your XAML Window/Page/UserControl:
 
@@ -84,6 +84,9 @@ If you need a different position use the AnimationTransformBase.
     </lottie:LottieAnimationView.AnimationScale>
 </lottie:LottieAnimationView>
 ```
+### Version 2.4.3
+Fixed #74, downgrade to Skiasharp 2.88.9, this fixes the issue that the library can't be used without warnings if the TargetFramework is not set to net8.0-windows10.0.19041 or higher (i.e. specific Windows SDK version).
+Fixed #75, small memory leak in setting animation from resource.
 
 ### Version 2.4.2
 (High cpu usage when control is invisible or not enabled)Play/Stop animation when control isn't visible or enable.
