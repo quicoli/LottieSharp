@@ -8,6 +8,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
+using System.Windows.Media.Animation;
 using System.Windows.Threading;
 
 namespace LottieSharp.WPF
@@ -24,9 +25,9 @@ namespace LottieSharp.WPF
     public class LottieAnimationView : SKElement, IDisposable
     {
         private readonly Stopwatch? watch = new();
+        private int _frameCount;
         private Animation animation;
-        private DispatcherTimer? timer;
-        private int loopCount;
+        private Storyboard storyboard;
         System.Windows.Resources.StreamResourceInfo? resourceInfo;
         private bool disposedValue;
 
@@ -36,7 +37,7 @@ namespace LottieSharp.WPF
         public LottieAnimationView()
         {
 
-        }        
+        }
 
         /// <summary>
         /// Handles property changes to update animation playback based on visibility and enabled state.
@@ -45,21 +46,21 @@ namespace LottieSharp.WPF
         protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
         {
             base.OnPropertyChanged(e);
-            if (e.Property == VisibilityProperty || e.Property == IsEnabledProperty || e.Property==IsVisibleProperty) 
+            if (e.Property == VisibilityProperty || e.Property == IsEnabledProperty || e.Property == IsVisibleProperty)
             {
                 if (EnsureVisibleAndEnabled())
                 {
-                    if (animation !=null && (AutoPlay || IsPlaying))
+                    if (animation != null && (AutoPlay || IsPlaying))
                     {
                         PlayAnimation();
                     }
                 }
                 else
                 {
-                    StopAnimation();
+                    ResumeAnimation();
                 }
             }
-            
+
         }
 
         /// <summary>
@@ -113,6 +114,26 @@ namespace LottieSharp.WPF
             set => SetValue(ResourcePathProperty, value);
         }
 
+
+        public double CurrentFrame
+        {
+            get { return (double)GetValue(CurrentFrameProperty); }
+            private set { SetValue(CurrentFrameProperty, value); }
+        }
+
+        public static readonly DependencyProperty CurrentFrameProperty =
+            DependencyProperty.Register("CurrentFrame", typeof(double), typeof(LottieAnimationView), new FrameworkPropertyMetadata(0.0, FrameworkPropertyMetadataOptions.AffectsRender));
+
+
+        public int CurrentFps
+        {
+            get { return (int)GetValue(CurrentFpsProperty); }
+            private set { SetValue(CurrentFpsProperty, value); }
+        }
+
+        public static readonly DependencyProperty CurrentFpsProperty =
+            DependencyProperty.Register("CurrentFps", typeof(int), typeof(LottieAnimationView), new PropertyMetadata(0));
+
         /// <summary>
         /// Starts or resumes the animation playback.
         /// </summary>
@@ -125,16 +146,34 @@ namespace LottieSharp.WPF
         {
             if (EnsureVisibleAndEnabled())
             {
-                
-                timer?.Start();
-                watch?.Start();
-                IsPlaying = true;
+                if (storyboard != null)
+                {
+                    if (_isResume)
+                    {
+                        storyboard.Resume();
+                        watch.Restart();
+                    }
+                    else
+                    {
+                        storyboard.Begin();
+                        watch.Start();
+                    }
+                    IsPlaying = true;
+                    _isResume = false;
+                }
             }
             else
             {
-                timer?.Stop();
-                watch?.Stop();
+                storyboard?.Pause();
             }
+        }
+
+        private bool _isResume;
+        public void ResumeAnimation()
+        {
+            storyboard?.Resume();
+            watch.Stop();
+            _isResume = true;
         }
 
         /// <summary>
@@ -147,39 +186,38 @@ namespace LottieSharp.WPF
         /// </example>
         public virtual void StopAnimation()
         {
-            loopCount = RepeatCount;
-            timer?.Stop();
-            watch?.Reset();
+            storyboard?.Stop();
+            watch?.Stop();
             IsPlaying = false;
-
+            _isResume = false;
             OnStop?.Invoke(this, null);
         }
 
         /// <summary>
-        /// Gets or sets the number of times the animation should repeat. Use -1 for infinite.
+        /// Gets or sets the number of times the animation should repeat.
         /// </summary>
         /// <example>
         /// <code>
-        /// lottieView.RepeatCount = -1; // Infinite loop
+        /// lottieView.RepeatBehavior = RepeatBehavior.Forever; // Infinite loop
         /// </code>
         /// </example>
-        public int RepeatCount
+        public RepeatBehavior RepeatBehavior
         {
-            get { return (int)GetValue(RepeatCountProperty); }
-            set { SetValue(RepeatCountProperty, value); }
+            get { return (RepeatBehavior)GetValue(RepeatBehaviorProperty); }
+            set { SetValue(RepeatBehaviorProperty, value); }
         }
 
         /// <summary>
-        /// Identifies the RepeatCount dependency property.
+        /// Identifies the RepeatBehavior dependency property.
         /// </summary>
-        public static readonly DependencyProperty RepeatCountProperty =
-            DependencyProperty.Register("RepeatCount", typeof(int), typeof(LottieAnimationView), new PropertyMetadata(0, RepeatCountChangedCallback));
+        public static readonly DependencyProperty RepeatBehaviorProperty =
+            DependencyProperty.Register("RepeatBehavior", typeof(RepeatBehavior), typeof(LottieAnimationView), new PropertyMetadata(new RepeatBehavior(1), RepeatBehaviorChangedCallback));
 
-        private static void RepeatCountChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void RepeatBehaviorChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (d is LottieAnimationView lottieAnimationView)
+            if (d is LottieAnimationView lottieAnimationView && lottieAnimationView.storyboard != null)
             {
-                lottieAnimationView.loopCount = (int)e.NewValue;
+                lottieAnimationView.storyboard.RepeatBehavior = (RepeatBehavior)e.NewValue;
             }
         }
 
@@ -248,26 +286,6 @@ namespace LottieSharp.WPF
         /// </summary>
         public static readonly DependencyProperty IsPlayingProperty =
             DependencyProperty.Register("IsPlaying", typeof(bool), typeof(LottieAnimationView), new PropertyMetadata(false));
-
-        /// <summary>
-        /// Gets or sets the repeat mode for the animation (Restart or Reverse).
-        /// </summary>
-        /// <example>
-        /// <code>
-        /// lottieView.Repeat = RepeatMode.Restart;
-        /// </code>
-        /// </example>
-        public RepeatMode Repeat
-        {
-            get { return (RepeatMode)GetValue(RepeatProperty); }
-            set { SetValue(RepeatProperty, value); }
-        }
-
-        /// <summary>
-        /// Identifies the Repeat dependency property.
-        /// </summary>
-        public static readonly DependencyProperty RepeatProperty =
-            DependencyProperty.Register("Repeat", typeof(RepeatMode), typeof(LottieAnimationView), new PropertyMetadata(RepeatMode.Restart));
 
         /// <summary>
         /// Identifies the FileName dependency property.
@@ -376,18 +394,33 @@ namespace LottieSharp.WPF
                 throw new InvalidOperationException("Failed to load animation");
             }
 
-            watch.Reset();
-            if (timer == null)
+            if (storyboard == null)
             {
-                timer = new DispatcherTimer(DispatcherPriority.Render);
-                timer.Interval = TimeSpan.FromSeconds(Math.Max(1 / 60.0, 1 / animation.Fps));
-                timer.Tick += (s, e) => { InvalidateVisual(); };
+                storyboard = new Storyboard() { RepeatBehavior = this.RepeatBehavior };
+                storyboard.Completed += (s, e) =>
+                {
+                    this.StopAnimation();
+                };
+                var ani = new DoubleAnimation(animation.InPoint, animation.OutPoint, animation.Duration);
+                Storyboard.SetTarget(ani, this);
+                Storyboard.SetTargetProperty(ani, new PropertyPath(CurrentFrameProperty));
+                storyboard.Children.Add(ani);
+                Timeline.SetDesiredFrameRate(storyboard, (int)animation.Fps);
             }
             else
             {
-                timer.Stop();
-                timer.Interval = TimeSpan.FromSeconds(Math.Max(1 / 60.0, 1 / animation.Fps));
+                if (Timeline.GetDesiredFrameRate(storyboard) != (int)animation.Fps)
+                {
+                    storyboard.Stop();
+                    this.BeginAnimation(CurrentFrameProperty, null);
+                    Timeline.SetDesiredFrameRate(storyboard, (int)animation.Fps);
+                }
+                if (storyboard.RepeatBehavior != this.RepeatBehavior)
+                {
+                    storyboard.RepeatBehavior = this.RepeatBehavior;
+                }
             }
+
 
             if (AutoPlay || IsPlaying)
             {
@@ -412,27 +445,7 @@ namespace LottieSharp.WPF
             }
             else if (animation != null)
             {
-                animation.SeekFrameTime((float)watch.Elapsed.TotalSeconds);
-
-                if (watch.Elapsed.TotalSeconds > animation.Duration.TotalSeconds)
-                {
-                    if (Repeat == RepeatMode.Restart)
-                    {
-                        if (RepeatCount == Defaults.RepeatCountInfinite)
-                        {
-                            watch.Restart();
-                        }
-                        else if (RepeatCount > 0 && loopCount > 0)
-                        {
-                            loopCount--;
-                            watch.Restart();
-                        }
-                        else
-                        {
-                            StopAnimation();
-                        }
-                    }
-                }
+                animation.SeekFrame(this.CurrentFrame);
 
                 if (AnimationScale is CenterTransform)
                 {
@@ -444,7 +457,16 @@ namespace LottieSharp.WPF
                 }
 
                 animation.Render(canvas, new SKRect(0, 0, info.Width, info.Height));
+
+                _frameCount++;
+                if (watch.ElapsedMilliseconds >= 1000)
+                {
+                    this.CurrentFps = (int)(_frameCount / watch.Elapsed.TotalSeconds);
+                    watch.Restart();
+                    _frameCount = 0;
+                }
             }
+
         }
 
         /// <summary>
@@ -460,9 +482,9 @@ namespace LottieSharp.WPF
                     resourceInfo?.Stream?.Dispose();
                 }
 
-                timer?.Stop();
-                timer = null;
-                watch?.Stop();
+                storyboard.Stop();
+                this.BeginAnimation(CurrentFrameProperty, null);
+                storyboard = null;
                 resourceInfo = null;
                 disposedValue = true;
             }

@@ -100,11 +100,16 @@
                                             Height="300"
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
-                                            AutoPlay="False"
+                                            AutoPlay="True"
                                             FileName="{Binding Path=SelectedAsset.FilePath}"
-                                            RepeatCount="0">
+                                            RepeatBehavior="Forever">
                                         </lottie:LottieAnimationView>
                                     </ScrollViewer>
+                                    <TextBlock HorizontalAlignment="Left" 
+                                               VerticalAlignment="Top" 
+                                               Text="{Binding ElementName=lottieView,Path=CurrentFps,StringFormat=FPS:{0}}" 
+                                               FontSize="20" 
+                                               Margin="10"/>
                                     <materialDesign:Card
                                         Grid.Row="1"
                                         Margin="8"
@@ -178,7 +183,7 @@
                                         VerticalAlignment="Center"
                                         AutoPlay="True"
                                         FileName="LottieLogo.json"
-                                        RepeatCount="3">
+                                        RepeatBehavior="3">
                                         <lottie:LottieAnimationView.AnimationScale>
                                             <transforms:CenterTransform ScaleX="1.5" ScaleY="1.5" />
                                         </lottie:LottieAnimationView.AnimationScale>
@@ -199,7 +204,7 @@
                                         VerticalAlignment="Center"
                                         AutoPlay="True"
                                         FileName="LottieLogo.json"
-                                        RepeatCount="3">
+                                        RepeatBehavior="3">
                                         <lottie:LottieAnimationView.AnimationScale>
                                             <transforms:AnimationTransformBase
                                                 CenterX="0"
@@ -230,7 +235,6 @@
                         Margin="0,20,0,0"
                         HorizontalAlignment="Center"
                         AutoPlay="True"
-                        RepeatCount="0"
                         ResourcePath="pack://application:,,,/images/resource-lottielogo.json">
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="OnStop">
